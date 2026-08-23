@@ -27,7 +27,7 @@ jobs:
         run: unzip -q fluid-works-build-input.zip
       - name: Compile independent API
         working-directory: fluid-works/required-api
-        run: chmod +x gradlew && ./gradlew classes jar --no-daemon --parallel --build-cache
+        run: chmod +x gradlew && ./gradlew classes remapJar --no-daemon --parallel --build-cache
       - name: Install independent API
         run: cp fluid-works/required-api/build/libs/fabric-fluid-api-1.3.0.jar fluid-works/libs/fabric-fluid-api-1.3.0.jar
       - name: Fast source compile
