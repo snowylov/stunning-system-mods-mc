@@ -26,7 +26,7 @@ jobs:
       - name: Restore build input
         run: cat fluid-works-build-input.zip.b64.* | base64 -d > fluid-works-build-input.zip
       - name: Extract build input
-        run: unzip -q fluid-works-build-input.zip
+        run: unzip -qo fluid-works-build-input.zip
       - name: Compile independent API
         working-directory: fluid-works/required-api
         run: chmod +x gradlew && ./gradlew classes remapJar --no-daemon --parallel --build-cache
