@@ -2,6 +2,12 @@ name: Build Fluid Works 1.21.11
 
 on:
   workflow_dispatch:
+    inputs:
+      export_jars:
+        description: Build and upload release JARs
+        required: false
+        default: false
+        type: boolean
   pull_request:
     paths:
       - "fluid-works-build-input.zip"
@@ -16,17 +22,25 @@ jobs:
         with:
           distribution: temurin
           java-version: "21"
+          cache: gradle
+      - uses: gradle/actions/setup-gradle@v4
       - name: Extract build input
         run: unzip -q fluid-works-build-input.zip
-      - name: Build independent API
+      - name: Compile independent API
         working-directory: fluid-works/required-api
-        run: chmod +x gradlew && ./gradlew build --no-daemon
+        run: chmod +x gradlew && ./gradlew classes jar --no-daemon --parallel --build-cache
       - name: Install independent API
         run: cp fluid-works/required-api/build/libs/fabric-fluid-api-1.3.0.jar fluid-works/libs/fabric-fluid-api-1.3.0.jar
-      - name: Build Fluid Works
+      - name: Fast source compile
+        if: github.event_name != 'workflow_dispatch' || !inputs.export_jars
         working-directory: fluid-works
-        run: chmod +x gradlew && ./gradlew build --no-daemon
+        run: chmod +x gradlew && ./gradlew fastCompile --no-daemon --parallel --build-cache
+      - name: Build release JARs
+        if: github.event_name == 'workflow_dispatch' && inputs.export_jars
+        working-directory: fluid-works
+        run: chmod +x gradlew && ./gradlew releaseJars --no-daemon --parallel --build-cache
       - uses: actions/upload-artifact@v4
+        if: github.event_name == 'workflow_dispatch' && inputs.export_jars
         with:
           name: fluid-works-1.21.11
           path: |
