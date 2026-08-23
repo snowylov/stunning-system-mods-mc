@@ -31,15 +31,15 @@ jobs:
       - name: Install independent API
         run: cp fluid-works/required-api/build/libs/fabric-fluid-api-1.3.0.jar fluid-works/libs/fabric-fluid-api-1.3.0.jar
       - name: Fast source compile
-        if: github.event_name == 'workflow_dispatch' && !inputs.export_jars
+        if: github.event_name != 'workflow_dispatch' || !inputs.export_jars
         working-directory: fluid-works
         run: chmod +x gradlew && ./gradlew fastCompile --no-daemon --parallel --build-cache
       - name: Build release JARs
-        if: github.event_name == 'pull_request' || inputs.export_jars
+        if: github.event_name == 'workflow_dispatch' && inputs.export_jars
         working-directory: fluid-works
         run: chmod +x gradlew && ./gradlew releaseJars --no-daemon --parallel --build-cache
       - uses: actions/upload-artifact@v4
-        if: github.event_name == 'pull_request' || inputs.export_jars
+        if: github.event_name == 'workflow_dispatch' && inputs.export_jars
         with:
           name: fluid-works-1.21.11
           path: |
