@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "fluidworks:block/levers/gold/gold_precision_lever/floor_off"
+  }
+}

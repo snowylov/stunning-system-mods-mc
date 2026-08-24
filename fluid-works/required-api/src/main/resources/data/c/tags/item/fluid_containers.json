@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "liquid-fabric-api-unofficial-fabric-api:fluid_bucket",
+    "liquid-fabric-api-unofficial-fabric-api:glass_test_tube",
+    "liquid-fabric-api-unofficial-fabric-api:triple_vial",
+    "liquid-fabric-api-unofficial-fabric-api:square_glass",
+    "liquid-fabric-api-unofficial-fabric-api:fancy_glass",
+    "liquid-fabric-api-unofficial-fabric-api:milk_bottle",
+    "liquid-fabric-api-unofficial-fabric-api:chocolate_milk_bottle",
+    "liquid-fabric-api-unofficial-fabric-api:hot_chocolate_bottle",
+    "liquid-fabric-api-unofficial-fabric-api:needle",
+    "liquid-fabric-api-unofficial-fabric-api:syringe"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "minecraft:block/copper_block"
+  },
+  "__comment": "MODEL_PENDING - replace with utilityapi needle filling station model/texture."
+}

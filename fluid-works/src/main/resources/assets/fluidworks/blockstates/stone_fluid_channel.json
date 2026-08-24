@@ -1,0 +1,78 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "fluidworks:block/stone_fluid_channel"
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "filled": "true"
+      },
+      "apply": {
+        "model": "fluidworks:block/fluid_channel_flow"
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "fluidworks:block/stone_fluid_channel",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "filled": "true"
+      },
+      "apply": {
+        "model": "fluidworks:block/fluid_channel_flow",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "fluidworks:block/stone_fluid_channel",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "filled": "true"
+      },
+      "apply": {
+        "model": "fluidworks:block/fluid_channel_flow",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "fluidworks:block/stone_fluid_channel",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "filled": "true"
+      },
+      "apply": {
+        "model": "fluidworks:block/fluid_channel_flow",
+        "y": 270
+      }
+    }
+  ]
+}

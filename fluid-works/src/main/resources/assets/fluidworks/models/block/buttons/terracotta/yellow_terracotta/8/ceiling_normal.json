@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/square_button/8/ceiling_normal",
+  "textures": {
+    "material": "minecraft:block/yellow_terracotta",
+    "particle": "minecraft:block/yellow_terracotta"
+  }
+}

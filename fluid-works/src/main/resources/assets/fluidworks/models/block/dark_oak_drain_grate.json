@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/drain_grate",
+  "textures": {
+    "device": "minecraft:block/dark_oak_planks",
+    "particle": "minecraft:block/dark_oak_planks"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "MM",
+    "MM"
+  ],
+  "key": {
+    "M": "minecraft:polished_blackstone"
+  },
+  "result": {
+    "id": "fluidworks:polished_blackstone_12x12_button",
+    "count": 2
+  }
+}

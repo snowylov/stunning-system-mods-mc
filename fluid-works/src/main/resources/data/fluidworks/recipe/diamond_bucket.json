@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:crafting_shaped", "category": "misc",
+  "pattern": ["D D", " D "], "key": { "D": "minecraft:diamond" },
+  "result": { "id": "fluidworks:diamond_bucket", "count": 1 }
+}

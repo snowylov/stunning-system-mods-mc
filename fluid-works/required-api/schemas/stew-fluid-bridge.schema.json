@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://liquidfabric.dev/schemas/stew-fluid-bridge.schema.json",
+  "title": "Stew API and Liquid Fabric shared bowl descriptor",
+  "type": "object",
+  "required": ["bowl", "mushroom_stew", "suspicious_stew"],
+  "oneOf": [
+    { "required": ["amount_droplets"] },
+    { "required": ["amount_mb"] },
+    {
+      "not": {
+        "anyOf": [
+          { "required": ["amount_droplets"] },
+          { "required": ["amount_mb"] }
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "bowl": { "$ref": "#/$defs/identifier" },
+    "mushroom_stew": { "$ref": "#/$defs/identifier" },
+    "suspicious_stew": { "$ref": "#/$defs/identifier" },
+    "mushroom_liquid": { "$ref": "#/$defs/identifier" },
+    "suspicious_liquid": { "$ref": "#/$defs/identifier" },
+    "amount_droplets": { "type": "integer", "minimum": 1 },
+    "amount_mb": { "type": "integer", "minimum": 1, "default": 250 },
+    "mushroom_color": { "type": "integer", "minimum": 0, "maximum": 16777215 },
+    "suspicious_color": { "type": "integer", "minimum": 0, "maximum": 16777215 },
+    "universal_overlay_bowl": { "$ref": "#/$defs/identifier" },
+    "fluid_overlay_tint_index": { "type": "integer", "minimum": 0, "default": 1 },
+    "automatic_suspicious_transfer": { "type": "boolean", "default": false },
+    "priority": { "type": "integer", "default": 0 }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+:[a-z0-9_./-]+$"
+    }
+  },
+  "additionalProperties": false
+}

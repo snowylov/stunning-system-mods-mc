@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CRC",
+    "RMR",
+    "CRC"
+  ],
+  "key": {
+    "C": "fluidworks:netherite_reservoir_casing",
+    "R": "minecraft:redstone",
+    "M": "minecraft:comparator"
+  },
+  "result": {
+    "id": "fluidworks:netherite_reservoir_controller",
+    "count": 1
+  }
+}

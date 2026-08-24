@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/square_button/12/ceiling_normal",
+  "textures": {
+    "material": "minecraft:block/bamboo_planks",
+    "particle": "minecraft:block/bamboo_planks"
+  }
+}

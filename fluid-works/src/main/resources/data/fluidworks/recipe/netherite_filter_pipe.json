@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": "minecraft:netherite_upgrade_smithing_template",
+  "base": "fluidworks:iron_filter_pipe",
+  "addition": "minecraft:netherite_ingot",
+  "result": {
+    "id": "fluidworks:netherite_filter_pipe"
+  }
+}

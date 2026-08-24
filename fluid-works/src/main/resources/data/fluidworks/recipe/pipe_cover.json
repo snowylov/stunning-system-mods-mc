@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " C ",
+    "CPC",
+    " C "
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "P": "fluidworks:fluid_pipe"
+  },
+  "result": {
+    "id": "fluidworks:pipe_cover",
+    "count": 4
+  }
+}

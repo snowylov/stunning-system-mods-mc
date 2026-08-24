@@ -1,0 +1,57 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "fluidworks:block/iron_fluid_separator"
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "fluidworks:block/iron_fluid_separator",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "fluidworks:block/iron_fluid_separator",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "fluidworks:block/iron_fluid_separator",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "up"
+      },
+      "apply": {
+        "model": "fluidworks:block/iron_fluid_separator",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "down"
+      },
+      "apply": {
+        "model": "fluidworks:block/iron_fluid_separator",
+        "x": 90
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+.gradle/
+build/
+run/
+libs/*.jar
+!libs/fabric-fluid-api-1.3.0.jar
+!libs/temperature-api-1.0.0-dev.jar
+!.gitkeep

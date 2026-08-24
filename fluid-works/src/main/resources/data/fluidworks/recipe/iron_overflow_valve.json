@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "III",
+    "IBI",
+    "III"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "B": "fluidworks:overflow_valve"
+  },
+  "result": {
+    "id": "fluidworks:iron_overflow_valve",
+    "count": 1
+  }
+}

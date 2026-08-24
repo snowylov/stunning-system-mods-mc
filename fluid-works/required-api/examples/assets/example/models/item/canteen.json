@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "example:item/canteen_base",
+    "layer1": "example:item/canteen_fluid_overlay"
+  }
+}

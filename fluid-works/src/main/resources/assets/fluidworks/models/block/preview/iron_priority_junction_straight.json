@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/preview/priority_junction_straight",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  }
+}

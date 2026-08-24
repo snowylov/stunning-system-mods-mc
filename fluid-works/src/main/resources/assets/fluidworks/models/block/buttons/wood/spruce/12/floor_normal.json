@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/square_button/12/floor_normal",
+  "textures": {
+    "material": "minecraft:block/spruce_planks",
+    "particle": "minecraft:block/spruce_planks"
+  }
+}

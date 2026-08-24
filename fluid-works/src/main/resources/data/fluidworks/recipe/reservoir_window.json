@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "GGG",
+    "GIG",
+    "GGG"
+  ],
+  "key": {
+    "G": "fluidworks:double_smelted_glass",
+    "I": "minecraft:iron_bars"
+  },
+  "result": {
+    "id": "fluidworks:reservoir_window",
+    "count": 8
+  }
+}

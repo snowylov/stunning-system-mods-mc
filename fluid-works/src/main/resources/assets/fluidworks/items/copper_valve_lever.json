@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "fluidworks:block/levers/copper/copper_valve_lever/floor_off"
+  }
+}

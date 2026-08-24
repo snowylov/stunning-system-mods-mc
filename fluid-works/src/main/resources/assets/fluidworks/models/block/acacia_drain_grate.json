@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/drain_grate",
+  "textures": {
+    "device": "minecraft:block/acacia_planks",
+    "particle": "minecraft:block/acacia_planks"
+  }
+}

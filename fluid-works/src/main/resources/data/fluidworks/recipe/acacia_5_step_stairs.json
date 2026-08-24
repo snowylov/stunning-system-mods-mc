@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "  M",
+    " MM",
+    "MMM"
+  ],
+  "key": {
+    "M": "minecraft:acacia_planks"
+  },
+  "result": {
+    "id": "fluidworks:acacia_5_step_stairs",
+    "count": 4
+  }
+}

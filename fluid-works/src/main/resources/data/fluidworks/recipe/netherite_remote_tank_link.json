@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": "minecraft:netherite_upgrade_smithing_template",
+  "base": "fluidworks:iron_remote_tank_link",
+  "addition": "minecraft:netherite_ingot",
+  "result": {
+    "id": "fluidworks:netherite_remote_tank_link"
+  }
+}

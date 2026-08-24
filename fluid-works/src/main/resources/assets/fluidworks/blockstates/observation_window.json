@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=north": { "model": "fluidworks:block/observation_window" },
+    "facing=south": { "model": "fluidworks:block/observation_window", "y": 180 },
+    "facing=west": { "model": "fluidworks:block/observation_window", "y": 270 },
+    "facing=east": { "model": "fluidworks:block/observation_window", "y": 90 },
+    "facing=up": { "model": "fluidworks:block/observation_window", "x": 90 },
+    "facing=down": { "model": "fluidworks:block/observation_window", "x": 270 }
+  }
+}

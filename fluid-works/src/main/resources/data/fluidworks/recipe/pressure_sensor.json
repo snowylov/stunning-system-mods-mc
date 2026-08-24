@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " C ",
+    "CMC",
+    " R "
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "M": "fluidworks:meter_pipe",
+    "R": "minecraft:comparator"
+  },
+  "result": {
+    "id": "fluidworks:pressure_sensor",
+    "count": 1
+  }
+}

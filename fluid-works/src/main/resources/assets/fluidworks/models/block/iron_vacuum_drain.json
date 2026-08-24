@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/vacuum_drain",
+  "textures": {
+    "device": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  }
+}

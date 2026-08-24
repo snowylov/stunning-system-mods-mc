@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "MGM",
+    "G G",
+    "MGM"
+  ],
+  "key": {
+    "M": "#c:storage_blocks/copper",
+    "G": "fluidworks:double_smelted_glass"
+  },
+  "result": {
+    "id": "fluidworks:copper_reservoir_casing",
+    "count": 8
+  }
+}

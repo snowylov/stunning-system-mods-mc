@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "G",
+    "G"
+  ],
+  "key": {
+    "G": "minecraft:glass_pane"
+  },
+  "result": {
+    "id": "liquid-fabric-api-unofficial-fabric-api:glass_test_tube",
+    "count": 24
+  }
+}

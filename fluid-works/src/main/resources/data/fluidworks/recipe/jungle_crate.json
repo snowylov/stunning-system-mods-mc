@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "PPP",
+    "PCP",
+    "PPP"
+  ],
+  "key": {
+    "P": "minecraft:jungle_planks",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "fluidworks:jungle_crate",
+    "count": 1
+  }
+}

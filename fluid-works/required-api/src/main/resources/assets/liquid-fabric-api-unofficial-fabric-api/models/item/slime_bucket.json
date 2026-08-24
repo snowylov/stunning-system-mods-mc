@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "liquid-fabric-api-unofficial-fabric-api:item/slime_bucket"
+  }
+}

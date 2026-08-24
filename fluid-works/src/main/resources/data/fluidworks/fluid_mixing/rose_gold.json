@@ -1,0 +1,7 @@
+{
+  "inputs": [
+    "fluidworks:liquid_gold",
+    "fluidworks:liquid_copper"
+  ],
+  "result": "fluidworks:liquid_rose_gold"
+}

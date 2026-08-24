@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CHC",
+    "FSF",
+    "CHC"
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "H": "minecraft:hopper",
+    "F": "fluidworks:filter_pipe",
+    "S": "minecraft:comparator"
+  },
+  "result": {
+    "id": "fluidworks:fluid_separator",
+    "count": 1
+  }
+}

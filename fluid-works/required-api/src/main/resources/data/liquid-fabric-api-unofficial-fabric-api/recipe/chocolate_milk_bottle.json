@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "liquid-fabric-api-unofficial-fabric-api:milk_bottle"
+    },
+    {
+      "item": "minecraft:cocoa_beans"
+    },
+    {
+      "item": "minecraft:cocoa_beans"
+    },
+    {
+      "item": "minecraft:cocoa_beans"
+    }
+  ],
+  "result": {
+    "item": "liquid-fabric-api-unofficial-fabric-api:chocolate_milk_bottle",
+    "count": 1
+  }
+}

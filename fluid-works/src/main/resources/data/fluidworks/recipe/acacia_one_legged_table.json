@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "PPP",
+    " S ",
+    "SSS"
+  ],
+  "key": {
+    "P": "minecraft:acacia_planks",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "fluidworks:acacia_one_legged_table",
+    "count": 1
+  }
+}

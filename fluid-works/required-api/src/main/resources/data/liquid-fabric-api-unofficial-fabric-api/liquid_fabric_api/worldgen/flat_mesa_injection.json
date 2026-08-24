@@ -1,0 +1,16 @@
+{
+  "type": "liquid_fabric_api:terrablender_optional_biome_injection",
+  "biome": "liquid-fabric-api-unofficial-fabric-api:flat_mesa",
+  "enabled": true,
+  "requires_mod": "terrablender",
+  "target_biomes": [
+    "minecraft:badlands",
+    "minecraft:eroded_badlands",
+    "minecraft:wooded_badlands"
+  ],
+  "weight": 2,
+  "region_weight": 2,
+  "min_plateau_diameter_blocks": 50,
+  "max_plateau_diameter_blocks": 100,
+  "notes": "Main mod only defines this JSON and biome. The optional TerraBlender companion reads this and injects the biome when TerraBlender is present."
+}

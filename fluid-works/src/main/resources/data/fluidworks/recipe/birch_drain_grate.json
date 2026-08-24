@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "PPP",
+    "PHP",
+    "PPP"
+  ],
+  "key": {
+    "P": "minecraft:birch_planks",
+    "H": "minecraft:hopper"
+  },
+  "result": {
+    "id": "fluidworks:birch_drain_grate",
+    "count": 1
+  }
+}

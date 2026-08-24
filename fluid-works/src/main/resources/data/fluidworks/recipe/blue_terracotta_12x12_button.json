@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "MM",
+    "MM"
+  ],
+  "key": {
+    "M": "minecraft:blue_terracotta"
+  },
+  "result": {
+    "id": "fluidworks:blue_terracotta_12x12_button",
+    "count": 2
+  }
+}

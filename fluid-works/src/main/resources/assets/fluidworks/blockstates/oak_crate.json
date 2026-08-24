@@ -1,0 +1,62 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "fluidworks:block/oak_crate_core"
+      }
+    },
+    {
+      "when": {
+        "north": "false"
+      },
+      "apply": {
+        "model": "fluidworks:block/oak_crate_face"
+      }
+    },
+    {
+      "when": {
+        "south": "false"
+      },
+      "apply": {
+        "model": "fluidworks:block/oak_crate_face",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "false"
+      },
+      "apply": {
+        "model": "fluidworks:block/oak_crate_face",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "east": "false"
+      },
+      "apply": {
+        "model": "fluidworks:block/oak_crate_face",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "up": "false"
+      },
+      "apply": {
+        "model": "fluidworks:block/oak_crate_face",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "down": "false"
+      },
+      "apply": {
+        "model": "fluidworks:block/oak_crate_face",
+        "x": 270
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "MIM",
+    "MCM",
+    "MMM"
+  ],
+  "key": {
+    "M": "minecraft:jungle_planks",
+    "C": "minecraft:chest",
+    "I": "minecraft:iron_nugget"
+  },
+  "result": {
+    "id": "fluidworks:jungle_item_case",
+    "count": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": "minecraft:netherite_upgrade_smithing_template",
+  "base": "fluidworks:iron_pressure_sensor",
+  "addition": "minecraft:netherite_ingot",
+  "result": {
+    "id": "fluidworks:netherite_pressure_sensor"
+  }
+}

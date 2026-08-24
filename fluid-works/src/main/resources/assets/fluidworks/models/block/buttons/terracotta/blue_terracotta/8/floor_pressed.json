@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/square_button/8/floor_pressed",
+  "textures": {
+    "material": "minecraft:block/blue_terracotta",
+    "particle": "minecraft:block/blue_terracotta"
+  }
+}

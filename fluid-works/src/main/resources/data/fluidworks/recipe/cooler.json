@@ -1,0 +1,6 @@
+{
+  "type":"minecraft:crafting_shaped","category":"redstone",
+  "pattern":["IBI","RHR","IPI"],
+  "key":{"I":"minecraft:iron_block","B":"minecraft:blue_ice","R":"minecraft:redstone_block","H":"minecraft:hopper","P":"fluidworks:iron_heater_pipe"},
+  "result":{"id":"fluidworks:cooler","count":1}
+}

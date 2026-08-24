@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CHC",
+    " P ",
+    "CHC"
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "H": "minecraft:hopper",
+    "P": "fluidworks:fluid_pipe"
+  },
+  "result": {
+    "id": "fluidworks:vacuum_drain",
+    "count": 1
+  }
+}

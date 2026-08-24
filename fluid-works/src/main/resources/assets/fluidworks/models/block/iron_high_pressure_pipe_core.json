@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/high_pressure_pipe_core",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  }
+}

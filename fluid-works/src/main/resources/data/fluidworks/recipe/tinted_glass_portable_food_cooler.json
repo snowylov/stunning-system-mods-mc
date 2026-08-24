@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "MMM",
+    "MCM",
+    "MMM"
+  ],
+  "key": {
+    "M": "minecraft:tinted_glass",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "fluidworks:tinted_glass_portable_food_cooler",
+    "count": 1
+  }
+}

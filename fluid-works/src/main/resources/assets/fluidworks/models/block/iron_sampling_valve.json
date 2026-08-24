@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/sampling_valve",
+  "textures": {
+    "device": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  }
+}

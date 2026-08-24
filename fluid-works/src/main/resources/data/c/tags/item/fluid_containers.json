@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "fluidworks:fuel_cell",
+    "fluidworks:reservoir_tank",
+    "fluidworks:custom_glass_bottle",
+    "fluidworks:copper_bucket",
+    "fluidworks:gold_bucket",
+    "fluidworks:diamond_bucket",
+    "fluidworks:netherite_bucket",
+    "fluidworks:universal_fluid_splash_potion",
+    "fluidworks:universal_fluid_lingering_potion"
+  ]
+}

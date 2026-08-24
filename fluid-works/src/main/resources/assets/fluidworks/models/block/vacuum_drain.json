@@ -1,0 +1,136 @@
+{
+  "textures": {
+    "device": "fluidworks:block/fluid_device_copper",
+    "particle": "#device"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        2,
+        0
+      ],
+      "to": [
+        14,
+        14,
+        4
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        5,
+        4
+      ],
+      "to": [
+        11,
+        11,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        3,
+        16,
+        2
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        2
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    }
+  ]
+}

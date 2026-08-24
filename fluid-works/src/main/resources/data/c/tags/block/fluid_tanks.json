@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "fluidworks:tank",
+    "fluidworks:reservoir_tank",
+    "fluidworks:bucket_dispenser",
+    "fluidworks:bottle_dispenser",
+    "fluidworks:copper_reservoir_controller",
+    "fluidworks:copper_reservoir_valve",
+    "fluidworks:iron_reservoir_controller",
+    "fluidworks:iron_reservoir_valve",
+    "fluidworks:gold_reservoir_controller",
+    "fluidworks:gold_reservoir_valve",
+    "fluidworks:netherite_reservoir_controller",
+    "fluidworks:netherite_reservoir_valve"
+  ]
+}

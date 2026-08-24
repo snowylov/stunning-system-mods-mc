@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=north": { "model": "fluidworks:block/fluid_label" },
+    "facing=south": { "model": "fluidworks:block/fluid_label", "y": 180 },
+    "facing=west": { "model": "fluidworks:block/fluid_label", "y": 270 },
+    "facing=east": { "model": "fluidworks:block/fluid_label", "y": 90 },
+    "facing=up": { "model": "fluidworks:block/fluid_label", "x": 90 },
+    "facing=down": { "model": "fluidworks:block/fluid_label", "x": 270 }
+  }
+}

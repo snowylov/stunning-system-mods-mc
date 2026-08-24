@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CDC",
+    "PHP",
+    "CCC"
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "D": "minecraft:dispenser",
+    "H": "fluidworks:high_pressure_pipe",
+    "P": "fluidworks:fluid_pipe"
+  },
+  "result": {
+    "id": "fluidworks:fluid_cannon",
+    "count": 1
+  }
+}

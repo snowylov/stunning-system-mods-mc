@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/square_button/12/ceiling_pressed",
+  "textures": {
+    "material": "minecraft:block/oak_planks",
+    "particle": "minecraft:block/oak_planks"
+  }
+}

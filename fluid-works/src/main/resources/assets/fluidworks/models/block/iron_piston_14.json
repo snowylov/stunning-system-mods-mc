@@ -1,0 +1,46 @@
+{
+  "textures": {
+    "iron": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#iron",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#iron",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#iron",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#iron",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#iron",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#iron",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

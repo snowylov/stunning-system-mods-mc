@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "liquid-fabric-api-unofficial-fabric-api:block/weathered_copper_drum"
+    },
+    "axis=x": {
+      "model": "liquid-fabric-api-unofficial-fabric-api:block/weathered_copper_drum",
+      "x": 90,
+      "y": 90
+    },
+    "axis=z": {
+      "model": "liquid-fabric-api-unofficial-fabric-api:block/weathered_copper_drum",
+      "x": 90
+    }
+  }
+}

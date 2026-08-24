@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/micro_stairs/outer_left_top",
+  "textures": {
+    "wood": "minecraft:block/oak_planks",
+    "particle": "minecraft:block/oak_planks"
+  }
+}

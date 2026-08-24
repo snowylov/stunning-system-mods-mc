@@ -1,0 +1,95 @@
+{
+  "temperature": 2.0,
+  "downfall": 0.0,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 7254527,
+    "fog_color": 12638463,
+    "water_color": 4159204,
+    "water_fog_color": 329011,
+    "grass_color": 9470285,
+    "foliage_color": 10387789,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    }
+  },
+  "spawners": {
+    "monster": [
+      {
+        "type": "minecraft:spider",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:zombie",
+        "weight": 95,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:skeleton",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:creeper",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:slime",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "creature": [],
+    "ambient": [],
+    "axolotls": [],
+    "underground_water_creature": [],
+    "water_creature": [],
+    "water_ambient": []
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [
+      "liquid-fabric-api-unofficial-fabric-api:flat_mesa_plateau"
+    ],
+    [
+      "minecraft:ore_dirt",
+      "minecraft:ore_gravel",
+      "minecraft:ore_granite_upper",
+      "minecraft:ore_granite_lower",
+      "minecraft:ore_diorite_upper",
+      "minecraft:ore_diorite_lower",
+      "minecraft:ore_andesite_upper",
+      "minecraft:ore_andesite_lower",
+      "minecraft:ore_tuff"
+    ],
+    [],
+    [],
+    [
+      "minecraft:patch_dead_bush_badlands"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ]
+}

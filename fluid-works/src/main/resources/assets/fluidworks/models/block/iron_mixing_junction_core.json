@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/mixing_junction_core",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  }
+}

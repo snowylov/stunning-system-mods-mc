@@ -1,0 +1,40 @@
+{
+  "textures": {
+    "texture": "minecraft:block/crimson_planks",
+    "particle": "minecraft:block/crimson_planks"
+  },
+  "elements": [
+    {
+      "from": [
+        12,
+        0,
+        12
+      ],
+      "to": [
+        15,
+        12,
+        15
+      ],
+      "faces": {
+        "down": {
+          "texture": "#texture"
+        },
+        "up": {
+          "texture": "#texture"
+        },
+        "north": {
+          "texture": "#texture"
+        },
+        "south": {
+          "texture": "#texture"
+        },
+        "west": {
+          "texture": "#texture"
+        },
+        "east": {
+          "texture": "#texture"
+        }
+      }
+    }
+  ]
+}

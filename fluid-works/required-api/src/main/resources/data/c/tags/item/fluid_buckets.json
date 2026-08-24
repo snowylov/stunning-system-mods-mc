@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "liquid-fabric-api-unofficial-fabric-api:fluid_bucket",
+    "liquid-fabric-api-unofficial-fabric-api:slime_bucket"
+  ]
+}

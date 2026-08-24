@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "PPP",
+    " S ",
+    "SSS"
+  ],
+  "key": {
+    "P": "minecraft:oak_planks",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "fluidworks:one_legged_table",
+    "count": 1
+  }
+}

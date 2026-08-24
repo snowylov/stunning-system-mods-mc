@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "fluidworks:block/bucket_dispenser" },
+    "facing=south": { "model": "fluidworks:block/bucket_dispenser", "y": 180 },
+    "facing=west": { "model": "fluidworks:block/bucket_dispenser", "y": 270 },
+    "facing=east": { "model": "fluidworks:block/bucket_dispenser", "y": 90 }
+  }
+}

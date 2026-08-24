@@ -1,0 +1,12 @@
+{
+  "bowl": "minecraft:bowl",
+  "mushroom_stew": "minecraft:mushroom_stew",
+  "suspicious_stew": "minecraft:suspicious_stew",
+  "mushroom_liquid": "minecraft:mushroom_stew",
+  "suspicious_liquid": "minecraft:suspicious_stew",
+  "amount_mb": 250,
+  "mushroom_color": 9132598,
+  "suspicious_color": 11897413,
+  "automatic_suspicious_transfer": false,
+  "priority": 0
+}

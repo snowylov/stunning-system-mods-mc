@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/stepped_stairs/16/inner_left_top",
+  "textures": {
+    "material": "minecraft:block/spruce_planks",
+    "particle": "minecraft:block/spruce_planks"
+  }
+}

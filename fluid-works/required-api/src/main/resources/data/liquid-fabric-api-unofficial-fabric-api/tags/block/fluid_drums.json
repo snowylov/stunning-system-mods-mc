@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "liquid-fabric-api-unofficial-fabric-api:iron_drum",
+    "liquid-fabric-api-unofficial-fabric-api:gold_drum",
+    "liquid-fabric-api-unofficial-fabric-api:diamond_drum",
+    "liquid-fabric-api-unofficial-fabric-api:obsidian_drum",
+    "liquid-fabric-api-unofficial-fabric-api:void_drum",
+    "liquid-fabric-api-unofficial-fabric-api:creative_drum",
+    "liquid-fabric-api-unofficial-fabric-api:copper_drum",
+    "liquid-fabric-api-unofficial-fabric-api:exposed_copper_drum",
+    "liquid-fabric-api-unofficial-fabric-api:weathered_copper_drum",
+    "liquid-fabric-api-unofficial-fabric-api:oxidized_copper_drum",
+    "liquid-fabric-api-unofficial-fabric-api:waxed_copper_drum",
+    "liquid-fabric-api-unofficial-fabric-api:waxed_exposed_copper_drum",
+    "liquid-fabric-api-unofficial-fabric-api:waxed_weathered_copper_drum",
+    "liquid-fabric-api-unofficial-fabric-api:waxed_oxidized_copper_drum",
+    "liquid-fabric-api-unofficial-fabric-api:netherite_drum"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": ["GBG", "GDG", "CRC"],
+  "key": { "C": "minecraft:copper_ingot", "B": "minecraft:glass_bottle", "G": "minecraft:glass", "D": "minecraft:dropper", "R": "minecraft:redstone" },
+  "result": { "id": "fluidworks:bottle_dispenser", "count": 1 }
+}

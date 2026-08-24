@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " C ",
+    "CHC",
+    " M "
+  ],
+  "key": {
+    "C": "fluidworks:netherite_reservoir_casing",
+    "H": "minecraft:hopper",
+    "M": "#c:storage_blocks/netherite"
+  },
+  "result": {
+    "id": "fluidworks:netherite_reservoir_valve",
+    "count": 1
+  }
+}

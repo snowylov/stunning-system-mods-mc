@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "example:item/copper_bowl_empty",
+    "layer1": "example:item/stew_overlay"
+  }
+}

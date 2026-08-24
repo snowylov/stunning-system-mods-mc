@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "fluidworks:block/fluid_sprinkler"
+  }
+}

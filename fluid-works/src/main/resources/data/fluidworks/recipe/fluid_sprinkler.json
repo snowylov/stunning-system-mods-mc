@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CIC",
+    " P ",
+    "CIC"
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "I": "minecraft:iron_bars",
+    "P": "fluidworks:fluid_pipe"
+  },
+  "result": {
+    "id": "fluidworks:fluid_sprinkler",
+    "count": 1
+  }
+}

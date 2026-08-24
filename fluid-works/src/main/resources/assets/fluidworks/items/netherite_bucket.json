@@ -1,0 +1,8 @@
+{
+  "model": {
+    "type": "minecraft:condition", "property": "minecraft:has_component",
+    "component": "liquid-fabric-api-unofficial-fabric-api:stored_fluid",
+    "on_true": { "type": "minecraft:model", "model": "fluidworks:item/netherite_bucket_filled", "tints": [ {"type":"minecraft:constant","value":-1}, {"type":"minecraft:potion","default":-13083194} ] },
+    "on_false": { "type": "minecraft:model", "model": "fluidworks:item/netherite_bucket_empty" }
+  }
+}

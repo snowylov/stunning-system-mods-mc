@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/extraction_fluid_pipe_arm",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_netherite",
+    "particle": "fluidworks:block/fluid_hardware_netherite"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "fluidworks:item/universal_fluid_lingering_potion"
+  }
+}

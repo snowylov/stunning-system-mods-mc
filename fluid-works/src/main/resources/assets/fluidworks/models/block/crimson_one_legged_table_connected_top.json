@@ -1,0 +1,46 @@
+{
+  "textures": {
+    "texture": "minecraft:block/crimson_planks",
+    "particle": "minecraft:block/crimson_planks"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        12,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#texture",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#texture",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#texture",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#texture",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#texture",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#texture",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

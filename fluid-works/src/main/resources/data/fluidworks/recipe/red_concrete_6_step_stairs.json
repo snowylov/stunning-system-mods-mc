@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "  M",
+    " MM",
+    "MMM"
+  ],
+  "key": {
+    "M": "minecraft:red_concrete"
+  },
+  "result": {
+    "id": "fluidworks:red_concrete_6_step_stairs",
+    "count": 4
+  }
+}

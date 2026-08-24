@@ -1,0 +1,57 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "fluidworks:block/remote_tank_link"
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "fluidworks:block/remote_tank_link",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "fluidworks:block/remote_tank_link",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "fluidworks:block/remote_tank_link",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "up"
+      },
+      "apply": {
+        "model": "fluidworks:block/remote_tank_link",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "down"
+      },
+      "apply": {
+        "model": "fluidworks:block/remote_tank_link",
+        "x": 90
+      }
+    }
+  ]
+}

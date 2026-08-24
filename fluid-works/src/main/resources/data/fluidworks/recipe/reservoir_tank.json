@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CGC",
+    "GBG",
+    "CGC"
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "G": "fluidworks:double_smelted_glass",
+    "B": "minecraft:glass_bottle"
+  },
+  "result": {
+    "id": "fluidworks:reservoir_tank",
+    "count": 1
+  }
+}

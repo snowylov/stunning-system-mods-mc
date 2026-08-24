@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "MMM",
+    "MCM",
+    "MMM"
+  ],
+  "key": {
+    "M": "minecraft:light_gray_stained_glass",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "fluidworks:light_gray_stained_glass_portable_food_cooler",
+    "count": 1
+  }
+}

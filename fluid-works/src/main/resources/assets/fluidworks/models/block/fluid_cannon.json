@@ -1,0 +1,104 @@
+{
+  "textures": {
+    "device": "fluidworks:block/fluid_device_copper",
+    "particle": "#device"
+  },
+  "elements": [
+    {
+      "from": [
+        3,
+        3,
+        6
+      ],
+      "to": [
+        13,
+        13,
+        15
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        5,
+        0
+      ],
+      "to": [
+        11,
+        11,
+        8
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        4,
+        0
+      ],
+      "to": [
+        12,
+        12,
+        2
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "fluidworks:block/double_smelted_glass"
+    }
+  }
+}

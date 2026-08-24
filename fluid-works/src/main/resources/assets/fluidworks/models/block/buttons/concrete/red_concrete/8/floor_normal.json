@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/square_button/8/floor_normal",
+  "textures": {
+    "material": "minecraft:block/red_concrete",
+    "particle": "minecraft:block/red_concrete"
+  }
+}

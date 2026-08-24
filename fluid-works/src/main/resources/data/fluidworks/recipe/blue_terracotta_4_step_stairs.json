@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "  M",
+    " MM",
+    "MMM"
+  ],
+  "key": {
+    "M": "minecraft:blue_terracotta"
+  },
+  "result": {
+    "id": "fluidworks:blue_terracotta_4_step_stairs",
+    "count": 4
+  }
+}

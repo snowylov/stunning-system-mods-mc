@@ -1,0 +1,4 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": { "layer0": "fluidworks:item/netherite_bucket", "layer1": "fluidworks:item/bucket_fluid_overlay" }
+}

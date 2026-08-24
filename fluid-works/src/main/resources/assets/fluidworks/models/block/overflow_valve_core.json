@@ -1,0 +1,40 @@
+{
+  "textures": {
+    "texture": "fluidworks:block/overflow_valve",
+    "particle": "fluidworks:block/overflow_valve"
+  },
+  "elements": [
+    {
+      "from": [
+        5,
+        5,
+        5
+      ],
+      "to": [
+        11,
+        11,
+        11
+      ],
+      "faces": {
+        "down": {
+          "texture": "#texture"
+        },
+        "up": {
+          "texture": "#texture"
+        },
+        "north": {
+          "texture": "#texture"
+        },
+        "south": {
+          "texture": "#texture"
+        },
+        "west": {
+          "texture": "#texture"
+        },
+        "east": {
+          "texture": "#texture"
+        }
+      }
+    }
+  ]
+}

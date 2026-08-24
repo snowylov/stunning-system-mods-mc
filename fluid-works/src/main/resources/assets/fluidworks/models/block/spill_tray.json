@@ -1,0 +1,168 @@
+{
+  "textures": {
+    "device": "fluidworks:block/fluid_device_copper",
+    "particle": "#device"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        1,
+        13
+      ],
+      "to": [
+        15,
+        15,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        12
+      ],
+      "to": [
+        2,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    },
+    {
+      "from": [
+        14,
+        0,
+        12
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        0,
+        12
+      ],
+      "to": [
+        14,
+        2,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        14,
+        12
+      ],
+      "to": [
+        14,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#device"
+        },
+        "up": {
+          "texture": "#device"
+        },
+        "north": {
+          "texture": "#device"
+        },
+        "south": {
+          "texture": "#device"
+        },
+        "west": {
+          "texture": "#device"
+        },
+        "east": {
+          "texture": "#device"
+        }
+      }
+    }
+  ]
+}

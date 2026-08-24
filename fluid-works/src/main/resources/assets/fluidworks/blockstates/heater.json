@@ -1,0 +1,1 @@
+{"variants":{"facing=north":{"model":"fluidworks:block/heater"},"facing=south":{"model":"fluidworks:block/heater","y":180},"facing=west":{"model":"fluidworks:block/heater","y":270},"facing=east":{"model":"fluidworks:block/heater","y":90}}}

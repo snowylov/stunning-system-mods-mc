@@ -1,0 +1,57 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "fluidworks:block/netherite_fluid_trap"
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "fluidworks:block/netherite_fluid_trap",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "fluidworks:block/netherite_fluid_trap",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "fluidworks:block/netherite_fluid_trap",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "up"
+      },
+      "apply": {
+        "model": "fluidworks:block/netherite_fluid_trap",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "down"
+      },
+      "apply": {
+        "model": "fluidworks:block/netherite_fluid_trap",
+        "x": 90
+      }
+    }
+  ]
+}

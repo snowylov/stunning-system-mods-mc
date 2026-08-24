@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/micro_stairs/outer_left_bottom",
+  "textures": {
+    "wood": "minecraft:block/crimson_planks",
+    "particle": "minecraft:block/crimson_planks"
+  }
+}

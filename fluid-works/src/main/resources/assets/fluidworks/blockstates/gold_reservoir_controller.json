@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "fluidworks:block/gold_reservoir_controller"
+    },
+    "facing=east": {
+      "model": "fluidworks:block/gold_reservoir_controller",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "fluidworks:block/gold_reservoir_controller",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "fluidworks:block/gold_reservoir_controller",
+      "y": 270
+    }
+  }
+}

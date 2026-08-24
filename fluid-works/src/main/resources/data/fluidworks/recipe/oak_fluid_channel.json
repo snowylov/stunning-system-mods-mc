@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "M M",
+    "MMM"
+  ],
+  "key": {
+    "M": "minecraft:oak_planks"
+  },
+  "result": {
+    "id": "fluidworks:oak_fluid_channel",
+    "count": 6
+  }
+}

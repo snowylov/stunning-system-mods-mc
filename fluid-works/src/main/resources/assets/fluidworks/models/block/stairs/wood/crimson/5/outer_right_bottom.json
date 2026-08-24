@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/stepped_stairs/5/outer_right_bottom",
+  "textures": {
+    "material": "minecraft:block/crimson_planks",
+    "particle": "minecraft:block/crimson_planks"
+  }
+}

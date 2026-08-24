@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "QPR"
+  ],
+  "key": {
+    "Q": "minecraft:quartz",
+    "P": "fluidworks:fluid_pipe",
+    "R": "minecraft:repeater"
+  },
+  "result": {
+    "id": "fluidworks:fluid_diode",
+    "count": 1
+  }
+}

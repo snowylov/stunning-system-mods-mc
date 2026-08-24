@@ -1,0 +1,108 @@
+plugins {
+    id "fabric-loom" version "${loom_version}"
+    id "maven-publish"
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        "fluidworks" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url = "https://maven.fabricmc.net/" }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+    // Independent APIs stay as separate Fabric mods; Fluid Works never shades their classes.
+    modImplementation files("libs/${project.fluid_api_jar}")
+
+    // Temperature integration is reflection-based and optional for players, but available in dev runs.
+    modCompileOnly files("libs/${project.temperature_api_jar}")
+    modLocalRuntime files("libs/${project.temperature_api_jar}")
+}
+
+def expandedModVersion = project.version.toString()
+
+processResources {
+    inputs.property "version", expandedModVersion
+    filesMatching("fabric.mod.json") {
+        expand "version": expandedModVersion
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+// Package the compiled Yarn-named classes separately from Loom's remapped game JAR.
+tasks.register("deobfJar", Jar) {
+    archiveClassifier = "deobf"
+    from sourceSets.main.output
+    from sourceSets.client.output
+}
+
+def requiredApiJar = layout.projectDirectory.file(
+    "libs/${project.fluid_api_jar}")
+
+def optionalTemperatureApiJar = layout.projectDirectory.file(
+    "libs/${project.temperature_api_jar}")
+
+tasks.register("verifyIndependentApi") {
+    doLast {
+        def apiJar = requiredApiJar.asFile
+        if (!apiJar.exists()) {
+            throw new GradleException("Missing required independent API: ${apiJar}")
+        }
+    }
+}
+
+tasks.register("verifyImportedApis") {
+    dependsOn "verifyIndependentApi"
+    doLast {
+        def temperatureApiJar = optionalTemperatureApiJar.asFile
+        if (!temperatureApiJar.exists()) {
+            throw new GradleException("Missing imported Temperature API: ${temperatureApiJar}")
+        }
+    }
+}
+
+tasks.named("compileJava") {
+    dependsOn "verifyImportedApis"
+}
+
+tasks.register("fastCompile") {
+    group = "build"
+    description = "Compiles source and processes resources without producing release JARs."
+    dependsOn "classes"
+}
+
+tasks.register("releaseJars") {
+    group = "build"
+    description = "Produces binary and source JARs only when a release export is requested."
+    dependsOn "build", "deobfJar"
+}

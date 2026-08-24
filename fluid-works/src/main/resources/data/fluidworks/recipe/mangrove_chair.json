@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "PPP",
+    " S ",
+    "S S"
+  ],
+  "key": {
+    "P": "minecraft:mangrove_planks",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "fluidworks:mangrove_chair",
+    "count": 2
+  }
+}

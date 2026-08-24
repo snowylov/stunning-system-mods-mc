@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/fluid_diode_core",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  }
+}
