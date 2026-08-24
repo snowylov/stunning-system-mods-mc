@@ -1,0 +1,7 @@
+{
+  "MODEL_PENDING": true,
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "minecraft:block/glass"
+  }
+}

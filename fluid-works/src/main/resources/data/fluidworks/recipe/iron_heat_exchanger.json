@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "III",
+    "IBI",
+    "III"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "B": "fluidworks:heat_exchanger"
+  },
+  "result": {
+    "id": "fluidworks:iron_heat_exchanger",
+    "count": 1
+  }
+}

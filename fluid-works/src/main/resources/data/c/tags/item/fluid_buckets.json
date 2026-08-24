@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bucket",
+    "fluidworks:copper_bucket",
+    "fluidworks:gold_bucket",
+    "fluidworks:diamond_bucket",
+    "fluidworks:netherite_bucket"
+  ]
+}

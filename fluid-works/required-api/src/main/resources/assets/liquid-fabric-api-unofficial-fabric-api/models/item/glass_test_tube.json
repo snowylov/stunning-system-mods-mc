@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "liquid-fabric-api-unofficial-fabric-api:item/test_tube_empty",
+    "layer1": "liquid-fabric-api-unofficial-fabric-api:item/test_tube_fluid_overlay"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/drain_grate",
+  "textures": {
+    "device": "fluidworks:block/fluid_hardware_netherite",
+    "particle": "fluidworks:block/fluid_hardware_netherite"
+  }
+}

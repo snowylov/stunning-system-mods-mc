@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "RPR"
+  ],
+  "key": {
+    "R": "minecraft:repeater",
+    "P": "fluidworks:fluid_pipe"
+  },
+  "result": {
+    "id": "fluidworks:pulse_valve",
+    "count": 1
+  }
+}

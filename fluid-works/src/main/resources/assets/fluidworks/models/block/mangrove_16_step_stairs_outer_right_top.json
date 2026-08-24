@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/micro_stairs/outer_right_top",
+  "textures": {
+    "wood": "minecraft:block/mangrove_planks",
+    "particle": "minecraft:block/mangrove_planks"
+  }
+}

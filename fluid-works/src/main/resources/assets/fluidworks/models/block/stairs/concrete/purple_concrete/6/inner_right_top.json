@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/stepped_stairs/6/inner_right_top",
+  "textures": {
+    "material": "minecraft:block/purple_concrete",
+    "particle": "minecraft:block/purple_concrete"
+  }
+}

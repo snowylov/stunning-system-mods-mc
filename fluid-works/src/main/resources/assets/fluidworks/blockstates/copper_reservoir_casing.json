@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "fluidworks:block/copper_reservoir_casing"
+    }
+  }
+}

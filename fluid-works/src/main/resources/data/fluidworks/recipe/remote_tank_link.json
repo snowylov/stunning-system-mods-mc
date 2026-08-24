@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CEC",
+    "PQP",
+    "CEC"
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "E": "minecraft:ender_pearl",
+    "P": "fluidworks:fluid_pipe",
+    "Q": "minecraft:quartz"
+  },
+  "result": {
+    "id": "fluidworks:remote_tank_link",
+    "count": 2
+  }
+}

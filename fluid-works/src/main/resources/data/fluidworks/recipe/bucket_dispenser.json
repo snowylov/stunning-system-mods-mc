@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": ["CBC", "IDI", "CRC"],
+  "key": { "C": "minecraft:copper_ingot", "B": "minecraft:bucket", "I": "minecraft:iron_bars", "D": "minecraft:dispenser", "R": "minecraft:redstone" },
+  "result": { "id": "fluidworks:bucket_dispenser", "count": 1 }
+}

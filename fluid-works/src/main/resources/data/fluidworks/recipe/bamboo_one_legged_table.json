@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "PPP",
+    " S ",
+    "SSS"
+  ],
+  "key": {
+    "P": "minecraft:bamboo_planks",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "fluidworks:bamboo_one_legged_table",
+    "count": 1
+  }
+}

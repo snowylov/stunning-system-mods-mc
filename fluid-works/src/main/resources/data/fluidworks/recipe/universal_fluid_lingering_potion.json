@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "minecraft:dragon_breath"
+  ],
+  "result": {
+    "id": "fluidworks:universal_fluid_lingering_potion",
+    "count": 1
+  }
+}

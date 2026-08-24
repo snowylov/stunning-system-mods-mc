@@ -1,0 +1,25 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "fluidworks:block/stackable_tank_body"
+      }
+    },
+    {
+      "when": {
+        "connected_up": "false"
+      },
+      "apply": {
+        "model": "fluidworks:block/stackable_tank_top_cap"
+      }
+    },
+    {
+      "when": {
+        "connected_down": "false"
+      },
+      "apply": {
+        "model": "fluidworks:block/stackable_tank_bottom_cap"
+      }
+    }
+  ]
+}

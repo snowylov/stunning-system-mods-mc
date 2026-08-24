@@ -1,0 +1,15 @@
+{
+  "$schema": "../../../../schemas/stew-fluid-bridge.schema.json",
+  "bowl": "example:copper_bowl",
+  "mushroom_stew": "example:copper_bowl_mushroom_stew",
+  "suspicious_stew": "example:copper_bowl_suspicious_stew",
+  "mushroom_liquid": "example:mushroom_stew",
+  "suspicious_liquid": "example:suspicious_stew",
+  "amount_mb": 250,
+  "mushroom_color": 9132598,
+  "suspicious_color": 11897413,
+  "universal_overlay_bowl": "example:universal_copper_stew_bowl",
+  "fluid_overlay_tint_index": 1,
+  "automatic_suspicious_transfer": false,
+  "priority": 10
+}

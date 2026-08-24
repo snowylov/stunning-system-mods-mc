@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [" I ", "PRP", " I "],
+  "key": { "I": "minecraft:iron_nugget", "P": "minecraft:paper", "R": "minecraft:redstone" },
+  "result": { "id": "fluidworks:fluid_label", "count": 2 }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "MM",
+    "MM"
+  ],
+  "key": {
+    "M": "minecraft:red_terracotta"
+  },
+  "result": {
+    "id": "fluidworks:red_terracotta_8x8_button",
+    "count": 4
+  }
+}

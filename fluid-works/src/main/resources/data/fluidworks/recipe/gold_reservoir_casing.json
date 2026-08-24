@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "MGM",
+    "G G",
+    "MGM"
+  ],
+  "key": {
+    "M": "#c:storage_blocks/gold",
+    "G": "fluidworks:double_smelted_glass"
+  },
+  "result": {
+    "id": "fluidworks:gold_reservoir_casing",
+    "count": 8
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "fluid": "example:honey",
+  "bucket_item": "example:copper_fluid_bucket",
+  "priority": 100
+}

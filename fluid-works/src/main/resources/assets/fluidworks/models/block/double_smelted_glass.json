@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "fluidworks:block/double_smelted_glass"
+  }
+}

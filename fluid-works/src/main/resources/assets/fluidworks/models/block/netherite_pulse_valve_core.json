@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/pulse_valve_core",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_netherite",
+    "particle": "fluidworks:block/fluid_hardware_netherite"
+  }
+}

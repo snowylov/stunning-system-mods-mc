@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "MM",
+    "MM"
+  ],
+  "key": {
+    "M": "minecraft:red_concrete"
+  },
+  "result": {
+    "id": "fluidworks:red_concrete_12x12_button",
+    "count": 2
+  }
+}

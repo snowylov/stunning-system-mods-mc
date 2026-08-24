@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/fluid_router",
+  "textures": {
+    "device": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  }
+}

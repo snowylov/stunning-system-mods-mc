@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:crafting_shaped", "category": "misc",
+  "pattern": ["C C", " C "], "key": { "C": "minecraft:copper_ingot" },
+  "result": { "id": "fluidworks:copper_bucket", "count": 1 }
+}

@@ -1,0 +1,9 @@
+{
+  "item": "example:canteen",
+  "capacity_mb": 2000,
+  "potion_liquids_allowed": false,
+  "fluid_overlay_tint_index": 1,
+  "denied_fluids": [
+    "minecraft:lava"
+  ]
+}

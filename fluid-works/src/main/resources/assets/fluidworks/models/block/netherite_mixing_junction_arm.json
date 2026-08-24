@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/mixing_junction_arm",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_netherite",
+    "particle": "fluidworks:block/fluid_hardware_netherite"
+  }
+}

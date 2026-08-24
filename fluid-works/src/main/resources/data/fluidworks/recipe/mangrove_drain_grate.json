@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "PPP",
+    "PHP",
+    "PPP"
+  ],
+  "key": {
+    "P": "minecraft:mangrove_planks",
+    "H": "minecraft:hopper"
+  },
+  "result": {
+    "id": "fluidworks:mangrove_drain_grate",
+    "count": 1
+  }
+}

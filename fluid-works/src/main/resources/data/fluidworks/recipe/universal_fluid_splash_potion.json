@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "minecraft:gunpowder"
+  ],
+  "result": {
+    "id": "fluidworks:universal_fluid_splash_potion",
+    "count": 1
+  }
+}

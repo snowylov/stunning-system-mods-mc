@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "PPP",
+    "PHP",
+    "PPP"
+  ],
+  "key": {
+    "P": "minecraft:pale_oak_planks",
+    "H": "minecraft:hopper"
+  },
+  "result": {
+    "id": "fluidworks:pale_oak_drain_grate",
+    "count": 1
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "liquid-fabric-api-unofficial-fabric-api:item/square_glass_empty",
+    "layer1": "liquid-fabric-api-unofficial-fabric-api:item/square_glass_fluid_overlay"
+  }
+}

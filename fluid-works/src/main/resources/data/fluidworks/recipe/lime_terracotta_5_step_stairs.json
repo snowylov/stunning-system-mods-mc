@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "  M",
+    " MM",
+    "MMM"
+  ],
+  "key": {
+    "M": "minecraft:lime_terracotta"
+  },
+  "result": {
+    "id": "fluidworks:lime_terracotta_5_step_stairs",
+    "count": 4
+  }
+}

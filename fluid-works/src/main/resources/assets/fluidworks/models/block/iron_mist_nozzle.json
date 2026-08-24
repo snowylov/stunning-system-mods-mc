@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/mist_nozzle",
+  "textures": {
+    "device": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  }
+}

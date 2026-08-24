@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://liquidfabric.dev/schemas/utilityapi-universal-bucket.schema.json",
+  "title": "UtilityAPI universal bucket mapping",
+  "type": "object",
+  "required": ["fluid", "bucket_item"],
+  "properties": {
+    "fluid": { "type": "string" },
+    "bucket_item": { "type": "string" },
+    "priority": { "type": "integer", "default": 0 }
+  },
+  "additionalProperties": false
+}

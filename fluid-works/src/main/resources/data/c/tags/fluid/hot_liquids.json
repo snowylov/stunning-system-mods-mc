@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:lava",
+    "minecraft:flowing_lava",
+    "fluidworks:liquid_iron",
+    "fluidworks:flowing_liquid_iron",
+    "fluidworks:liquid_copper",
+    "fluidworks:flowing_liquid_copper",
+    "fluidworks:liquid_gold",
+    "fluidworks:flowing_liquid_gold"
+  ]
+}

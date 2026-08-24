@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": ["minecraft:glass_bottle", "minecraft:copper_ingot"],
+  "result": { "id": "fluidworks:custom_glass_bottle", "count": 2 }
+}

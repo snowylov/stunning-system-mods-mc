@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "IGI",
+    "G G",
+    "IGI"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "G": "fluidworks:double_smelted_glass"
+  },
+  "result": {
+    "id": "fluidworks:stackable_tank",
+    "count": 1
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "item": "fluidworks:fuel_cell",
+  "capacity_mb": 500,
+  "potion_liquids_allowed": false,
+  "fluid_overlay_tint_index": 1
+}

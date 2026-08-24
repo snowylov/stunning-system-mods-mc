@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://liquidfabric.dev/schemas/utilityapi-container.schema.json",
+  "title": "UtilityAPI fluid container hook",
+  "type": "object",
+  "required": ["item"],
+  "oneOf": [
+    { "required": ["capacity_droplets"] },
+    { "required": ["capacity_mb"] }
+  ],
+  "properties": {
+    "item": { "type": "string", "pattern": "^[a-z0-9_.-]+:[a-z0-9_./-]+$" },
+    "capacity_droplets": { "type": "integer", "minimum": 1 },
+    "capacity_mb": { "type": "integer", "minimum": 1 },
+    "potion_liquids_allowed": { "type": "boolean", "default": false },
+    "fluid_overlay_tint_index": { "type": "integer", "minimum": 0, "default": 1 },
+    "allowed_fluids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "denied_fluids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+  },
+  "additionalProperties": false
+}

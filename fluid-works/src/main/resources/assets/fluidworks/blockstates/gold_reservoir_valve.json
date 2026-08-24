@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "fluidworks:block/gold_reservoir_valve"
+    },
+    "facing=east": {
+      "model": "fluidworks:block/gold_reservoir_valve",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "fluidworks:block/gold_reservoir_valve",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "fluidworks:block/gold_reservoir_valve",
+      "y": 270
+    }
+  }
+}

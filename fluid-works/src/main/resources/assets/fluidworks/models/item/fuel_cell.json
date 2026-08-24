@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "fluidworks:item/fuel_cell",
+    "layer1": "fluidworks:item/fuel_cell_overlay"
+  }
+}

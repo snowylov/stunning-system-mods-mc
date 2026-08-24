@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/preview/pulse_valve_straight",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "  M",
+    " MM",
+    "MMM"
+  ],
+  "key": {
+    "M": "minecraft:orange_concrete"
+  },
+  "result": {
+    "id": "fluidworks:orange_concrete_5_step_stairs",
+    "count": 4
+  }
+}

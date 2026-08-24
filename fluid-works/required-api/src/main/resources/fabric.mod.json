@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "liquid-fabric-api-unofficial-fabric-api",
+  "version": "${version}",
+  "name": "Fabric Fluid API Easy Containers Core",
+  "description": "Independent 1.21.11 API for component-backed fluid container items, tank storage, transfer transactions, and addon registration hooks.",
+  "authors": [
+    "Alex"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.liquidfabric.api.unofficial.UtilityApiMod"
+    ],
+    "client": [
+      "dev.liquidfabric.api.unofficial.client.UtilityApiClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "1.21.11",
+    "java": ">=21",
+    "fabric-api": ">=0.141.6+1.21.11"
+  },
+  "suggests": {}
+}

@@ -1,0 +1,94 @@
+{
+  "variants": {
+    "face=wall,facing=north,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/wall_normal"
+    },
+    "face=wall,facing=north,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/wall_pressed"
+    },
+    "face=wall,facing=east,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/wall_normal",
+      "y": 90
+    },
+    "face=wall,facing=east,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/wall_pressed",
+      "y": 90
+    },
+    "face=wall,facing=south,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/wall_normal",
+      "y": 180
+    },
+    "face=wall,facing=south,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/wall_pressed",
+      "y": 180
+    },
+    "face=wall,facing=west,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/wall_normal",
+      "y": 270
+    },
+    "face=wall,facing=west,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/wall_pressed",
+      "y": 270
+    },
+    "face=floor,facing=north,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/floor_normal"
+    },
+    "face=floor,facing=north,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/floor_pressed"
+    },
+    "face=floor,facing=east,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/floor_normal",
+      "y": 90
+    },
+    "face=floor,facing=east,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/floor_pressed",
+      "y": 90
+    },
+    "face=floor,facing=south,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/floor_normal",
+      "y": 180
+    },
+    "face=floor,facing=south,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/floor_pressed",
+      "y": 180
+    },
+    "face=floor,facing=west,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/floor_normal",
+      "y": 270
+    },
+    "face=floor,facing=west,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/floor_pressed",
+      "y": 270
+    },
+    "face=ceiling,facing=north,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/ceiling_normal"
+    },
+    "face=ceiling,facing=north,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/ceiling_pressed"
+    },
+    "face=ceiling,facing=east,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/ceiling_normal",
+      "y": 90
+    },
+    "face=ceiling,facing=east,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/ceiling_pressed",
+      "y": 90
+    },
+    "face=ceiling,facing=south,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/ceiling_normal",
+      "y": 180
+    },
+    "face=ceiling,facing=south,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/ceiling_pressed",
+      "y": 180
+    },
+    "face=ceiling,facing=west,powered=false": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/ceiling_normal",
+      "y": 270
+    },
+    "face=ceiling,facing=west,powered=true": {
+      "model": "fluidworks:block/buttons/concrete/magenta_concrete/12/ceiling_pressed",
+      "y": 270
+    }
+  }
+}

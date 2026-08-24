@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "GPG"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "P": "fluidworks:fluid_pipe"
+  },
+  "result": {
+    "id": "fluidworks:priority_junction",
+    "count": 1
+  }
+}

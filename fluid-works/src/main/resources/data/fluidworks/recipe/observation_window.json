@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": ["IGI", "GRG", "IGI"],
+  "key": { "I": "minecraft:iron_nugget", "G": "fluidworks:double_smelted_glass", "R": "minecraft:redstone" },
+  "result": { "id": "fluidworks:observation_window", "count": 2 }
+}

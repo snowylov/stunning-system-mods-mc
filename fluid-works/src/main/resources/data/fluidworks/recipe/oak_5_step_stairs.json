@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "  M",
+    " MM",
+    "MMM"
+  ],
+  "key": {
+    "M": "minecraft:oak_planks"
+  },
+  "result": {
+    "id": "fluidworks:oak_5_step_stairs",
+    "count": 4
+  }
+}

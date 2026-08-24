@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "fluidworks",
+  "version": "${version}",
+  "name": "Fluid Works",
+  "description": "Industrial fluid tanks, portable containers, multiblock reservoirs, and configurable BuildCraft-style fluid pipes.",
+  "authors": [
+    "Alex"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.alex.fluidworks.FluidWorks"
+    ],
+    "client": [
+      "com.alex.fluidworks.client.FluidWorksClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "1.21.11",
+    "java": ">=21",
+    "fabric-api": ">=0.141.6+1.21.11",
+    "liquid-fabric-api-unofficial-fabric-api": ">=1.3.0"
+  },
+  "suggests": {
+    "temperature_api": "*"
+  },
+  "icon": "assets/fluidworks/icon.png"
+}

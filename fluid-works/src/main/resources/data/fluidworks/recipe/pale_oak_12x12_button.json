@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "MM",
+    "MM"
+  ],
+  "key": {
+    "M": "minecraft:pale_oak_planks"
+  },
+  "result": {
+    "id": "fluidworks:pale_oak_12x12_button",
+    "count": 2
+  }
+}

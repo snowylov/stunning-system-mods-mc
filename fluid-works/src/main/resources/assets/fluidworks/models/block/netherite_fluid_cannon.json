@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/fluid_cannon",
+  "textures": {
+    "device": "fluidworks:block/fluid_hardware_netherite",
+    "particle": "fluidworks:block/fluid_hardware_netherite"
+  }
+}

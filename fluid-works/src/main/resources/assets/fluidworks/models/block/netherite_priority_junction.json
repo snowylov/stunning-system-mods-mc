@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/priority_junction",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_netherite",
+    "particle": "fluidworks:block/fluid_hardware_netherite"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/square_button/12/ceiling_pressed",
+  "textures": {
+    "material": "minecraft:block/purple_concrete",
+    "particle": "minecraft:block/purple_concrete"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "ICI",
+    "III"
+  ],
+  "key": {
+    "G": "minecraft:glass_bottle",
+    "I": "minecraft:iron_ingot",
+    "C": "minecraft:copper_ingot"
+  },
+  "result": {
+    "id": "liquid-fabric-api-unofficial-fabric-api:needle_filling_station",
+    "count": 1
+  }
+}

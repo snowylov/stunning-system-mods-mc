@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CTC",
+    "DPD",
+    "CCC"
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "T": "minecraft:tripwire_hook",
+    "D": "minecraft:dispenser",
+    "P": "fluidworks:fluid_pipe"
+  },
+  "result": {
+    "id": "fluidworks:fluid_trap",
+    "count": 1
+  }
+}

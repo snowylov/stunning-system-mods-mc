@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "fluidworks:block/tank_side",
+    "top": "fluidworks:block/tank_top",
+    "bottom": "fluidworks:block/tank_top",
+    "particle": "fluidworks:block/tank_side"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:crafting_shaped", "category": "misc",
+  "pattern": ["G G", " G "], "key": { "G": "minecraft:gold_ingot" },
+  "result": { "id": "fluidworks:gold_bucket", "count": 1 }
+}

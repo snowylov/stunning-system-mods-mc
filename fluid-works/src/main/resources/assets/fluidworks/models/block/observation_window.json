@@ -1,0 +1,17 @@
+{
+  "textures": {
+    "all": "fluidworks:block/observation_window",
+    "particle": "fluidworks:block/observation_window"
+  },
+  "elements": [
+    {
+      "from": [1, 1, 15],
+      "to": [15, 15, 16],
+      "faces": {
+        "down": { "texture": "#all" }, "up": { "texture": "#all" },
+        "north": { "texture": "#all" }, "south": { "texture": "#all" },
+        "west": { "texture": "#all" }, "east": { "texture": "#all" }
+      }
+    }
+  ]
+}

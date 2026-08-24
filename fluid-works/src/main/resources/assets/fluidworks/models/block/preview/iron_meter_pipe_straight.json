@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/preview/meter_pipe_straight",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  }
+}

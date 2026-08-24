@@ -1,0 +1,7 @@
+{
+  "fluid": "example:honey",
+  "flowing_fluid": "example:flowing_honey",
+  "still_texture": "example:block/honey_still",
+  "flowing_texture": "example:block/honey_flow",
+  "tint": 16755200
+}

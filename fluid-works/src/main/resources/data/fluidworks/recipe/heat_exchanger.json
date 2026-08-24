@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CIC",
+    "PBP",
+    "CIC"
+  ],
+  "key": {
+    "C": "minecraft:copper_block",
+    "I": "minecraft:iron_bars",
+    "P": "fluidworks:fluid_pipe",
+    "B": "minecraft:blast_furnace"
+  },
+  "result": {
+    "id": "fluidworks:heat_exchanger",
+    "count": 1
+  }
+}

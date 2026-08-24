@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "MM",
+    "MM"
+  ],
+  "key": {
+    "M": "minecraft:lime_terracotta"
+  },
+  "result": {
+    "id": "fluidworks:lime_terracotta_12x12_button",
+    "count": 2
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/square_button/12/wall_normal",
+  "textures": {
+    "material": "minecraft:block/green_terracotta",
+    "particle": "minecraft:block/green_terracotta"
+  }
+}

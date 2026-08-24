@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/stepped_stairs/5/inner_left_top",
+  "textures": {
+    "material": "minecraft:block/white_terracotta",
+    "particle": "minecraft:block/white_terracotta"
+  }
+}

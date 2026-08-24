@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "MM",
+    "MM"
+  ],
+  "key": {
+    "M": "minecraft:dark_oak_planks"
+  },
+  "result": {
+    "id": "fluidworks:dark_oak_8x8_button",
+    "count": 4
+  }
+}

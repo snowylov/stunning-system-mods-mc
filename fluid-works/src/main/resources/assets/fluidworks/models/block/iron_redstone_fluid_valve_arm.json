@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/redstone_fluid_valve_arm",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_iron",
+    "particle": "fluidworks:block/fluid_hardware_iron"
+  }
+}

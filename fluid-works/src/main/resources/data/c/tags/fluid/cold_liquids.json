@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "fluidworks:liquid_nitrogen",
+    "fluidworks:flowing_liquid_nitrogen",
+    "fluidworks:liquid_cryogen",
+    "fluidworks:flowing_liquid_cryogen"
+  ]
+}

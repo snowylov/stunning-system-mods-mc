@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [" R ", "PVP", " C "],
+  "key": { "R": "minecraft:redstone_torch", "P": "fluidworks:fluid_pipe", "V": "minecraft:comparator", "C": "minecraft:copper_ingot" },
+  "result": { "id": "fluidworks:redstone_fluid_valve", "count": 1 }
+}

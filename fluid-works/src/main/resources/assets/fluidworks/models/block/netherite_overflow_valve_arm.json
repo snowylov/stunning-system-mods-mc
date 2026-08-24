@@ -1,0 +1,7 @@
+{
+  "parent": "fluidworks:block/overflow_valve_arm",
+  "textures": {
+    "texture": "fluidworks:block/fluid_hardware_netherite",
+    "particle": "fluidworks:block/fluid_hardware_netherite"
+  }
+}

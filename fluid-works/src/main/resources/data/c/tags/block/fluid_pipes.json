@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "fluidworks:fluid_pipe",
+    "fluidworks:redstone_fluid_valve",
+    "fluidworks:extraction_fluid_pipe",
+    "fluidworks:high_pressure_pipe",
+    "fluidworks:meter_pipe",
+    "fluidworks:overflow_valve",
+    "fluidworks:pulse_valve",
+    "fluidworks:priority_junction",
+    "fluidworks:fluid_diode",
+    "fluidworks:filter_pipe",
+    "fluidworks:mixing_junction"
+  ]
+}

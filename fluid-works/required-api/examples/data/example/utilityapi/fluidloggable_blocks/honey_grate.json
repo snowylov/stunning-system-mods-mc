@@ -1,0 +1,5 @@
+{
+  "block": "example:honey_grate",
+  "fluid": "example:honey",
+  "property": "fluidlogged"
+}

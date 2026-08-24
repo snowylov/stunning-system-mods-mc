@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " C ",
+    "BVB",
+    " C "
+  ],
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "B": "minecraft:glass_bottle",
+    "V": "fluidworks:redstone_fluid_valve"
+  },
+  "result": {
+    "id": "fluidworks:sampling_valve",
+    "count": 1
+  }
+}

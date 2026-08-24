@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://liquidfabric.dev/schemas/utilityapi-fluidloggable-block.schema.json",
+  "title": "UtilityAPI fluidloggable block definition",
+  "type": "object",
+  "required": ["block", "fluid"],
+  "properties": {
+    "block": { "type": "string" },
+    "fluid": { "type": "string" },
+    "property": { "type": "string", "default": "fluidlogged" }
+  },
+  "additionalProperties": false
+}
