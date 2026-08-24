@@ -1,0 +1,11 @@
+Fluid Works source-only snapshot
+Minecraft: 1.21.11
+Yarn: 1.21.11+build.4
+Fabric Loader: 0.18.4
+Fabric API: 0.141.6+1.21.11
+Java: 21
+Source content SHA-256: c5ab757849ef7c119c130d93b523facbc9d421678500c9806c7532cc43863a23
+ZIP SHA-256: ac8fcdf4c587fc2719767d74b647048711344cf7f19dd6892a9b47f1d4a4cfd2
+Parts: aa ab ac ad ae af ag ah ai
+Reconstruct: cat fluid-works-source-c5ab7578.zip.b64.* | base64 --decode > fluid-works-source-c5ab7578.zip
+No JARs or compiled artifacts are included.
