@@ -1,4 +1,4 @@
-name: Noobvill Dynamica Java 21 artifacts
+name: Noobvill Dynamica Java 21 verified artifacts
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
 
@@ -21,7 +21,7 @@ jobs:
         shell: bash
         run: |
           cat ci/noobvill-dynamica/source.part-* | base64 --decode > noobvill-dynamica-ci-source.tar.xz
-          echo "59968eafb6f34eb6c35f7282fa750d3310f57edbf5be000a403d64f82572eefc  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
+          echo "d54a67513172aba2d823b766bb95b2dfdeb6297202b50d1e9c1153802a576c23  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
           mkdir project
           tar -xJf noobvill-dynamica-ci-source.tar.xz -C project
 
@@ -36,19 +36,23 @@ jobs:
         working-directory: project
         run: |
           mkdir -p build/evidence
-          # Evidence belongs under build/, which the source-fingerprint contract deliberately ignores.
-          # Keeping reports out of the source tree prevents the verifier from measuring its own output.
           python3 ../ci/noobvill-dynamica/tools/compile_mod.py profile . > build/evidence/compiler-profile.json
           python3 ../ci/noobvill-dynamica/tools/mcassist.py validate . > build/evidence/static-result.json
           python3 ../ci/noobvill-dynamica/tools/fabric_validity_gate.py fingerprint . > build/evidence/source-fingerprint.json
           jq -e '.minecraft=="1.21.11" and .yarn_mappings=="1.21.11+build.4" and .fabric_loader=="0.18.4" and .fabric_api=="0.141.6+1.21.11" and .required_java==21 and .ready==true' build/evidence/compiler-profile.json
           jq -e '.ok==true' build/evidence/static-result.json
 
-      - name: Compile all requested artifacts
+      - name: Compile artifacts and run server GameTests
         working-directory: project
         run: |
           chmod +x gradlew
-          ./gradlew releaseJars --stacktrace --no-daemon
+          ./gradlew verifiedRelease --stacktrace --no-daemon
+
+      - name: Run client rendering GameTest
+        working-directory: project
+        run: |
+          xvfb-run -a ./gradlew runClientGameTest --stacktrace --no-daemon -Dfabric.client.gametest.disableNetworkSynchronizer=true
+          jq -n '{verdict:"PASS",java:21,server_gametests:true,client_gametest:true,client_world_created:true,chunks_rendered:true}' > build/evidence/behavioral-verification.json
 
       - name: Flower Fabric validity gate
         working-directory: project
@@ -60,12 +64,13 @@ jobs:
           DEV="$(find build/libs -maxdepth 1 -name '*-dev.jar' -print -quit)"
           SOURCE="$(find build/distributions -maxdepth 1 -name '*-source.zip' -print -quit)"
           test -f "$GAME" && test -f "$DEOBF" && test -f "$API" && test -f "$DEV" && test -f "$SOURCE"
+          jq -e '.verdict=="PASS" and .server_gametests==true and .client_gametest==true' build/evidence/behavioral-verification.json
           python3 ../ci/noobvill-dynamica/tools/compile_mod.py verify-jar "$GAME" > build/evidence/artifact-verification.json
           python3 tools/verify_release_contract.py "$GAME" "$API" "$DEOBF" "$SOURCE"
           unzip -t "$DEV"
           unzip -l "$DEV" | grep -q '\.class$'
           FINGERPRINT="$(jq -r .source_fingerprint build/evidence/source-fingerprint.json)"
-          jq -n --arg command "$(pwd)/gradlew" --arg fingerprint "$FINGERPRINT" --arg artifact "$(realpath "$GAME")" --slurpfile profile build/evidence/compiler-profile.json --slurpfile verification build/evidence/artifact-verification.json '{ok:true,exit_code:0,command:[$command,"releaseJars"],source_fingerprint:$fingerprint,profile:$profile[0],verification:$verification[0],artifact:$artifact}' > build/evidence/build-result.json
+          jq -n --arg command "$(pwd)/gradlew" --arg fingerprint "$FINGERPRINT" --arg artifact "$(realpath "$GAME")" --slurpfile profile build/evidence/compiler-profile.json --slurpfile verification build/evidence/artifact-verification.json --slurpfile behavior build/evidence/behavioral-verification.json '{ok:true,exit_code:0,command:[$command,"verifiedRelease","runClientGameTest"],source_fingerprint:$fingerprint,profile:$profile[0],verification:$verification[0],behavior:$behavior[0],artifact:$artifact}' > build/evidence/build-result.json
           python3 ../ci/noobvill-dynamica/tools/fabric_validity_gate.py verify . \
             --compiler-profile build/evidence/compiler-profile.json \
             --static-result build/evidence/static-result.json \
@@ -87,13 +92,27 @@ jobs:
           cp "$API" ../release/noobvill-dynamica-3.3.0-api.jar
           cp "$DEV" ../release/noobvill-dynamica-3.3.0-dev.jar
           cp "$SOURCE" ../release/noobvill-dynamica-3.3.0-source.zip
+          cp build/evidence/behavioral-verification.json ../release/
           cp fabric-validity-receipt.json ../release/
           cd ../release
-          sha256sum *.jar *.zip > artifact-checksums.sha256
+          sha256sum *.jar *.zip *.json > artifact-checksums.sha256
+
+      - name: Upload failed GameTest diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: noobvill-dynamica-gametest-failure-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 7
+          path: |
+            project/build/reports/
+            project/build/test-results/
+            project/run/logs/
+            project/run/screenshots/
 
       - uses: actions/upload-artifact@v4
         with:
-          name: noobvill-dynamica-3.3.0-java21
+          name: noobvill-dynamica-3.3.0-java21-verified
           if-no-files-found: error
           retention-days: 30
           path: release/*
