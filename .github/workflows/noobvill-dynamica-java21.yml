@@ -23,7 +23,7 @@ jobs:
         shell: bash
         run: |
           cat ci/noobvill-dynamica/source.part-* | base64 --decode > noobvill-dynamica-ci-source.tar.xz
-          echo "c4268872976fc2b51ea900a6b4dc48c69072055d02f112b2d9cfe68724e18319  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
+          echo "8470573ae5b9be0fad6a6282b8bdc278f48dc7f217b282704b2e27fd0d41d692  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
           mkdir project
           tar -xJf noobvill-dynamica-ci-source.tar.xz -C project
 
@@ -42,6 +42,7 @@ jobs:
           python3 ../ci/noobvill-dynamica/tools/mcassist.py validate . > build/evidence/static-result.json
           python3 ../ci/noobvill-dynamica/tools/fabric_validity_gate.py fingerprint . > build/evidence/source-fingerprint.json
           python3 tools/migrate_recipe_schema_1_21_11.py .
+          python3 tools/verify_dimension_schema_1_21_11.py .
           jq -e '.minecraft=="1.21.11" and .yarn_mappings=="1.21.11+build.4" and .fabric_loader=="0.18.4" and .fabric_api=="0.141.6+1.21.11" and .required_java==21 and .ready==true' build/evidence/compiler-profile.json
           jq -e '.ok==true' build/evidence/static-result.json
 
@@ -51,11 +52,17 @@ jobs:
           chmod +x gradlew
           timeout --signal=TERM 25m ./gradlew verifiedRelease --stacktrace --no-daemon
 
+      - name: Run normal dedicated-server dimension smoke
+        working-directory: project
+        run: |
+          timeout --signal=TERM 25m ./gradlew runDedicatedSmoke --stacktrace --no-daemon
+          jq -e '.verdict=="PASS" and .worlds==11 and .day_night==true' build/run/dedicatedSmoke/dedicated-smoke.json
+
       - name: Run client rendering GameTest
         working-directory: project
         run: |
           timeout --signal=TERM 30m xvfb-run -a ./gradlew runClientGameTest --stacktrace --no-daemon -Dfabric.client.gametest.disableNetworkSynchronizer=true
-          jq -n '{verdict:"PASS",java:21,server_gametests:true,client_gametest:true,client_world_created:true,chunks_rendered:true}' > build/evidence/behavioral-verification.json
+          jq -n '{verdict:"PASS",java:21,server_gametests:true,dedicated_server:true,dedicated_worlds:11,client_gametest:true,client_world_created:true,chunks_rendered:true}' > build/evidence/behavioral-verification.json
 
       - name: Flower Fabric validity gate
         working-directory: project
@@ -67,7 +74,7 @@ jobs:
           DEV="$(find build/libs -maxdepth 1 -name '*-dev.jar' -print -quit)"
           SOURCE="$(find build/distributions -maxdepth 1 -name '*-source.zip' -print -quit)"
           test -f "$GAME" && test -f "$DEOBF" && test -f "$API" && test -f "$DEV" && test -f "$SOURCE"
-          jq -e '.verdict=="PASS" and .server_gametests==true and .client_gametest==true' build/evidence/behavioral-verification.json
+          jq -e '.verdict=="PASS" and .server_gametests==true and .dedicated_server==true and .dedicated_worlds==11 and .client_gametest==true' build/evidence/behavioral-verification.json
           python3 ../ci/noobvill-dynamica/tools/compile_mod.py verify-jar "$GAME" > build/evidence/artifact-verification.json
           python3 tools/verify_release_contract.py "$GAME" "$API" "$DEOBF" "$SOURCE"
           unzip -t "$DEV"
@@ -113,6 +120,7 @@ jobs:
             project/run/logs/
             project/run/screenshots/
             project/**/server.properties
+            project/**/dedicated-smoke.json
             project/**/logs/
 
       - uses: actions/upload-artifact@v4
