@@ -23,7 +23,7 @@ jobs:
         shell: bash
         run: |
           cat ci/noobvill-dynamica/source.part-* | base64 --decode > noobvill-dynamica-ci-source.tar.xz
-          echo "40ff4c060b9fd9a8955b5c84fd4442c0c8904175ea281436fa9369f366e7d74c  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
+          echo "b01e1ca79cb648ef23b0743e4ac94e8be48ba1841724b0120c97304906d76e13  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
           mkdir project
           tar -xJf noobvill-dynamica-ci-source.tar.xz -C project
 
@@ -112,6 +112,8 @@ jobs:
             project/build/test-results/
             project/run/logs/
             project/run/screenshots/
+            project/**/server.properties
+            project/**/logs/
 
       - uses: actions/upload-artifact@v4
         with:
