@@ -1,0 +1,94 @@
+name: Noobvill Dynamica Java 21 artifacts
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ codex/noobvill-dynamica-3-3-build ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct checked source bundle
+        shell: bash
+        run: |
+          cat ci/noobvill-dynamica/source.part-* | base64 --decode > noobvill-dynamica-ci-source.tar.xz
+          echo "6af80469a48ebc801bfe087cb20965e7239f238a2d968ce4f7b91e64ccb666d7  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
+          mkdir project
+          tar -xJf noobvill-dynamica-ci-source.tar.xz -C project
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: microsoft
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Exact-toolchain profile and static validation
+        working-directory: project
+        run: |
+          python3 ../ci/noobvill-dynamica/tools/compile_mod.py profile . > compiler-profile.json
+          python3 ../ci/noobvill-dynamica/tools/mcassist.py validate . > static-result.json
+          python3 ../ci/noobvill-dynamica/tools/fabric_validity_gate.py fingerprint . > source-fingerprint.json
+          jq -e '.minecraft=="1.21.11" and .yarn_mappings=="1.21.11+build.4" and .fabric_loader=="0.18.4" and .fabric_api=="0.141.6+1.21.11" and .required_java==21 and .ready==true' compiler-profile.json
+          jq -e '.ok==true' static-result.json
+
+      - name: Compile all requested artifacts
+        working-directory: project
+        run: |
+          chmod +x gradlew
+          ./gradlew releaseJars --stacktrace --no-daemon
+
+      - name: Flower Fabric validity gate
+        working-directory: project
+        shell: bash
+        run: |
+          GAME="$(find build/libs -maxdepth 1 -name 'noobvill-dynamica-3.3.0.jar' -print -quit)"
+          DEOBF="$(find build/libs -maxdepth 1 -name '*-deobf.jar' -print -quit)"
+          API="$(find build/libs -maxdepth 1 -name '*-api.jar' -print -quit)"
+          DEV="$(find build/libs -maxdepth 1 -name '*-dev.jar' -print -quit)"
+          SOURCE="$(find build/distributions -maxdepth 1 -name '*-source.zip' -print -quit)"
+          test -f "$GAME" && test -f "$DEOBF" && test -f "$API" && test -f "$DEV" && test -f "$SOURCE"
+          python3 ../ci/noobvill-dynamica/tools/compile_mod.py verify-jar "$GAME" > artifact-verification.json
+          python3 tools/verify_release_contract.py "$GAME" "$API" "$DEOBF" "$SOURCE"
+          unzip -t "$DEV"
+          unzip -l "$DEV" | grep -q '\.class$'
+          FINGERPRINT="$(jq -r .source_fingerprint source-fingerprint.json)"
+          jq -n --arg command "$(pwd)/gradlew" --arg fingerprint "$FINGERPRINT" --arg artifact "$(realpath "$GAME")" --slurpfile profile compiler-profile.json --slurpfile verification artifact-verification.json '{ok:true,exit_code:0,command:[$command,"releaseJars"],source_fingerprint:$fingerprint,profile:$profile[0],verification:$verification[0],artifact:$artifact}' > build-result.json
+          python3 ../ci/noobvill-dynamica/tools/fabric_validity_gate.py verify . \
+            --compiler-profile compiler-profile.json \
+            --static-result static-result.json \
+            --build-result build-result.json \
+            --artifact "game-ready=$GAME" \
+            --artifact "deobf=$DEOBF" \
+            --artifact "api=$API" \
+            --artifact "source-zip=$SOURCE" \
+            --expected-minecraft 1.21.11 \
+            --expected-yarn '1.21.11+build.4' \
+            --expected-loader 0.18.4 \
+            --expected-fabric-api '0.141.6+1.21.11' \
+            --expected-java 21 \
+            --output fabric-validity-receipt.json
+          jq -e '.verdict=="PASS"' fabric-validity-receipt.json
+          mkdir -p ../release
+          cp "$GAME" ../release/noobvill-dynamica-3.3.0-game-ready.jar
+          cp "$DEOBF" ../release/noobvill-dynamica-3.3.0-deobf.jar
+          cp "$API" ../release/noobvill-dynamica-3.3.0-api.jar
+          cp "$DEV" ../release/noobvill-dynamica-3.3.0-dev.jar
+          cp "$SOURCE" ../release/noobvill-dynamica-3.3.0-source.zip
+          cp fabric-validity-receipt.json ../release/
+          cd ../release
+          sha256sum *.jar *.zip > artifact-checksums.sha256
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: noobvill-dynamica-3.3.0-java21
+          if-no-files-found: error
+          retention-days: 30
+          path: release/*
