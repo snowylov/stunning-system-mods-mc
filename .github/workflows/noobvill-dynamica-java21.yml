@@ -19,7 +19,7 @@ jobs:
         shell: bash
         run: |
           cat ci/noobvill-dynamica/source.part-* | base64 --decode > noobvill-dynamica-ci-source.tar.xz
-          echo "e1dbb8db50329f387c18afe92983467a3e490277917c58aaa745e26ee1c5c56c  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
+          echo "5fc6d4ad9fa7bd2efad800f59f4293b0a25e1c2bbdbba122b574c32d5624cb58  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
           mkdir project
           tar -xJf noobvill-dynamica-ci-source.tar.xz -C project
 
@@ -44,12 +44,12 @@ jobs:
         working-directory: project
         run: |
           chmod +x gradlew
-          ./gradlew verifiedRelease --stacktrace --no-daemon
+          timeout --signal=TERM 45m ./gradlew verifiedRelease --stacktrace --no-daemon
 
       - name: Run client rendering GameTest
         working-directory: project
         run: |
-          xvfb-run -a ./gradlew runClientGameTest --stacktrace --no-daemon -Dfabric.client.gametest.disableNetworkSynchronizer=true
+          timeout --signal=TERM 30m xvfb-run -a ./gradlew runClientGameTest --stacktrace --no-daemon -Dfabric.client.gametest.disableNetworkSynchronizer=true
           jq -n '{verdict:"PASS",java:21,server_gametests:true,client_gametest:true,client_world_created:true,chunks_rendered:true}' > build/evidence/behavioral-verification.json
 
       - name: Flower Fabric validity gate
