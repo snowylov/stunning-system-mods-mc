@@ -23,7 +23,7 @@ jobs:
         shell: bash
         run: |
           cat ci/noobvill-dynamica/source.part-* | base64 --decode > noobvill-dynamica-ci-source.tar.xz
-          echo "a2faaa11fcc23d2d02605d140b74c9c5bf528f94197edd775c855b07cef78477  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
+          echo "5d8971aa3a5f712689523a9062040fea818d4b4de63fa03d4aad87a3f52847cf  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
           mkdir project
           tar -xJf noobvill-dynamica-ci-source.tar.xz -C project
 
