@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: noobvill-dynamica-java21-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,7 +23,7 @@ jobs:
         shell: bash
         run: |
           cat ci/noobvill-dynamica/source.part-* | base64 --decode > noobvill-dynamica-ci-source.tar.xz
-          echo "87b421a7c0b2ff3b6308c49ca175d23b8ef5d2edfa3f6f94831a75e0905983bb  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
+          echo "40ff4c060b9fd9a8955b5c84fd4442c0c8904175ea281436fa9369f366e7d74c  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
           mkdir project
           tar -xJf noobvill-dynamica-ci-source.tar.xz -C project
 
