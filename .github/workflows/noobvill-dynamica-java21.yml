@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [ codex/noobvill-dynamica-3-3-build ]
+  pull_request:
+    branches: [ main ]
 
 permissions:
   contents: read
