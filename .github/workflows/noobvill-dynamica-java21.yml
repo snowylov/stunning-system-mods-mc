@@ -19,7 +19,7 @@ jobs:
         shell: bash
         run: |
           cat ci/noobvill-dynamica/source.part-* | base64 --decode > noobvill-dynamica-ci-source.tar.xz
-          echo "5fc6d4ad9fa7bd2efad800f59f4293b0a25e1c2bbdbba122b574c32d5624cb58  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
+          echo "87b421a7c0b2ff3b6308c49ca175d23b8ef5d2edfa3f6f94831a75e0905983bb  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
           mkdir project
           tar -xJf noobvill-dynamica-ci-source.tar.xz -C project
 
@@ -37,6 +37,7 @@ jobs:
           python3 ../ci/noobvill-dynamica/tools/compile_mod.py profile . > build/evidence/compiler-profile.json
           python3 ../ci/noobvill-dynamica/tools/mcassist.py validate . > build/evidence/static-result.json
           python3 ../ci/noobvill-dynamica/tools/fabric_validity_gate.py fingerprint . > build/evidence/source-fingerprint.json
+          python3 tools/migrate_recipe_schema_1_21_11.py .
           jq -e '.minecraft=="1.21.11" and .yarn_mappings=="1.21.11+build.4" and .fabric_loader=="0.18.4" and .fabric_api=="0.141.6+1.21.11" and .required_java==21 and .ready==true' build/evidence/compiler-profile.json
           jq -e '.ok==true' build/evidence/static-result.json
 
