@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [ codex/noobvill-dynamica-3-3-build ]
-  pull_request:
-    branches: [ main ]
 
 permissions:
   contents: read
@@ -21,7 +19,7 @@ jobs:
         shell: bash
         run: |
           cat ci/noobvill-dynamica/source.part-* | base64 --decode > noobvill-dynamica-ci-source.tar.xz
-          echo "ac60e4d6a391e24e8eb9fb81ac96d3c9f76ae90c62c55e6b9ac6249cb67dd41b  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
+          echo "e1dbb8db50329f387c18afe92983467a3e490277917c58aaa745e26ee1c5c56c  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
           mkdir project
           tar -xJf noobvill-dynamica-ci-source.tar.xz -C project
 
