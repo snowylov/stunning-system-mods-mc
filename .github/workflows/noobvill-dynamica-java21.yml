@@ -1,0 +1,131 @@
+name: Noobvill Dynamica Java 21 verified artifacts
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ codex/noobvill-dynamica-3-3-build ]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: noobvill-dynamica-java21-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct checked source bundle
+        shell: bash
+        run: |
+          cat ci/noobvill-dynamica/source.part-* | base64 --decode > noobvill-dynamica-ci-source.tar.xz
+          echo "efbec15d9fd549eaaf4b105ca5f08b193d8ff24042b34a0798ffc58c1fca5aa3  noobvill-dynamica-ci-source.tar.xz" | sha256sum --check --strict
+          mkdir project
+          tar -xJf noobvill-dynamica-ci-source.tar.xz -C project
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: microsoft
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Exact-toolchain profile and static validation
+        working-directory: project
+        run: |
+          mkdir -p build/evidence
+          python3 ../ci/noobvill-dynamica/tools/compile_mod.py profile . > build/evidence/compiler-profile.json
+          python3 ../ci/noobvill-dynamica/tools/mcassist.py validate . > build/evidence/static-result.json
+          python3 ../ci/noobvill-dynamica/tools/fabric_validity_gate.py fingerprint . > build/evidence/source-fingerprint.json
+          python3 tools/migrate_recipe_schema_1_21_11.py .
+          python3 tools/verify_dimension_schema_1_21_11.py .
+          jq -e '.minecraft=="1.21.11" and .yarn_mappings=="1.21.11+build.4" and .fabric_loader=="0.18.4" and .fabric_api=="0.141.6+1.21.11" and .required_java==21 and .ready==true' build/evidence/compiler-profile.json
+          jq -e '.ok==true' build/evidence/static-result.json
+
+      - name: Compile artifacts and run server GameTests
+        working-directory: project
+        run: |
+          chmod +x gradlew
+          timeout --signal=TERM 25m ./gradlew verifiedRelease --stacktrace --no-daemon
+
+      - name: Run normal dedicated-server dimension smoke
+        working-directory: project
+        run: |
+          timeout --signal=TERM 25m ./gradlew runDedicatedSmoke --stacktrace --no-daemon
+          jq -e '.verdict=="PASS" and .worlds==11 and .day_night==true' build/run/dedicatedSmoke/dedicated-smoke.json
+
+      - name: Run client rendering GameTest
+        working-directory: project
+        run: |
+          timeout --signal=TERM 30m xvfb-run -a ./gradlew runClientGameTest --stacktrace --no-daemon -Dfabric.client.gametest.disableNetworkSynchronizer=true
+          jq -n '{verdict:"PASS",java:21,server_gametests:true,dedicated_server:true,dedicated_worlds:11,client_gametest:true,client_world_created:true,chunks_rendered:true}' > build/evidence/behavioral-verification.json
+
+      - name: Flower Fabric validity gate
+        working-directory: project
+        shell: bash
+        run: |
+          GAME="$(find build/libs -maxdepth 1 -name 'noobvill-dynamica-3.3.0.jar' -print -quit)"
+          DEOBF="$(find build/libs -maxdepth 1 -name '*-deobf.jar' -print -quit)"
+          API="$(find build/libs -maxdepth 1 -name '*-api.jar' -print -quit)"
+          DEV="$(find build/libs -maxdepth 1 -name '*-dev.jar' -print -quit)"
+          SOURCE="$(find build/distributions -maxdepth 1 -name '*-source.zip' -print -quit)"
+          test -f "$GAME" && test -f "$DEOBF" && test -f "$API" && test -f "$DEV" && test -f "$SOURCE"
+          jq -e '.verdict=="PASS" and .server_gametests==true and .dedicated_server==true and .dedicated_worlds==11 and .client_gametest==true' build/evidence/behavioral-verification.json
+          python3 ../ci/noobvill-dynamica/tools/compile_mod.py verify-jar "$GAME" > build/evidence/artifact-verification.json
+          python3 tools/verify_release_contract.py "$GAME" "$API" "$DEOBF" "$SOURCE"
+          unzip -t "$DEV"
+          unzip -l "$DEV" | grep -q '\.class$'
+          FINGERPRINT="$(jq -r .source_fingerprint build/evidence/source-fingerprint.json)"
+          jq -n --arg command "$(pwd)/gradlew" --arg fingerprint "$FINGERPRINT" --arg artifact "$(realpath "$GAME")" --slurpfile profile build/evidence/compiler-profile.json --slurpfile verification build/evidence/artifact-verification.json --slurpfile behavior build/evidence/behavioral-verification.json '{ok:true,exit_code:0,command:[$command,"verifiedRelease","runClientGameTest"],source_fingerprint:$fingerprint,profile:$profile[0],verification:$verification[0],behavior:$behavior[0],artifact:$artifact}' > build/evidence/build-result.json
+          python3 ../ci/noobvill-dynamica/tools/fabric_validity_gate.py verify . \
+            --compiler-profile build/evidence/compiler-profile.json \
+            --static-result build/evidence/static-result.json \
+            --build-result build/evidence/build-result.json \
+            --artifact "game-ready=$GAME" \
+            --artifact "deobf=$DEOBF" \
+            --artifact "api=$API" \
+            --artifact "source-zip=$SOURCE" \
+            --expected-minecraft 1.21.11 \
+            --expected-yarn '1.21.11+build.4' \
+            --expected-loader 0.18.4 \
+            --expected-fabric-api '0.141.6+1.21.11' \
+            --expected-java 21 \
+            --output fabric-validity-receipt.json
+          jq -e '.verdict=="PASS"' fabric-validity-receipt.json
+          mkdir -p ../release
+          cp "$GAME" ../release/noobvill-dynamica-3.3.0-game-ready.jar
+          cp "$DEOBF" ../release/noobvill-dynamica-3.3.0-deobf.jar
+          cp "$API" ../release/noobvill-dynamica-3.3.0-api.jar
+          cp "$DEV" ../release/noobvill-dynamica-3.3.0-dev.jar
+          cp "$SOURCE" ../release/noobvill-dynamica-3.3.0-source.zip
+          cp build/evidence/behavioral-verification.json ../release/
+          cp fabric-validity-receipt.json ../release/
+          cd ../release
+          sha256sum *.jar *.zip *.json > artifact-checksums.sha256
+
+      - name: Upload failed GameTest diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: noobvill-dynamica-gametest-failure-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 7
+          path: |
+            project/build/reports/
+            project/build/test-results/
+            project/run/logs/
+            project/run/screenshots/
+            project/**/server.properties
+            project/**/dedicated-smoke.json
+            project/**/logs/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: noobvill-dynamica-3.3.0-java21-verified
+          if-no-files-found: error
+          retention-days: 30
+          path: release/*
