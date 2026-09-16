@@ -1,0 +1,40 @@
+name: Build Noobvill Power 1.7.0
+
+on:
+  push:
+    branches:
+      - codex/noobvill-power-hazmat-1-5
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Unpack source
+        run: |
+          mkdir mod
+          unzip -q noobvill-power-1.7.0-build-input.zip -d mod
+          chmod +x mod/gradlew
+      - name: Build exact Fabric target
+        working-directory: mod
+        run: ./gradlew build --stacktrace
+      - name: Stage distributable archives
+        run: |
+          cp noobvill-power-1.7.0-build-input.zip mod/build/libs/noobvill-power-forcefields-1.7.0-source.zip
+          cp mod/build/distributions/noobvill-power-forcefields-1.7.0-api.zip mod/build/libs/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: noobvill-power-1.7.0-artifacts
+          path: mod/build/libs/*
+          if-no-files-found: error
