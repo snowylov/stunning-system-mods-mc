@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - codex/noobvill-power-hazmat-1-5
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
