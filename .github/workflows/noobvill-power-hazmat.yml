@@ -1,0 +1,29 @@
+name: Noobvill Power Hazmat Build
+on:
+  push:
+    branches:
+      - codex/noobvill-power-hazmat-1-5
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Extract project
+        run: unzip -q noobvill-power-1.5.0-build-input.zip -d project
+      - name: Build
+        working-directory: project
+        run: |
+          chmod +x gradlew
+          ./gradlew build --stacktrace
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: noobvill-power-forcefields-1.5.0
+          path: |
+            project/build/libs/*
+            project/build/reports/**
