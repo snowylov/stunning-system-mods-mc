@@ -1,4 +1,4 @@
-name: Build Noobvill Power 1.8.0
+name: Build Noobvill Power 1.8.1
 
 on:
   push:
@@ -24,17 +24,17 @@ jobs:
       - name: Unpack source
         run: |
           mkdir mod
-          unzip -q noobvill-power-1.8.0-build-input.zip -d mod
+          unzip -q noobvill-power-1.8.1-build-input.zip -d mod
           chmod +x mod/gradlew
       - name: Build exact Fabric target
         working-directory: mod
         run: ./gradlew build --stacktrace
       - name: Stage distributable archives
         run: |
-          cp noobvill-power-1.8.0-build-input.zip mod/build/libs/noobvill-power-forcefields-1.8.0-source.zip
-          cp mod/build/distributions/noobvill-power-forcefields-1.8.0-api.zip mod/build/libs/
+          cp noobvill-power-1.8.1-build-input.zip mod/build/libs/noobvill-power-forcefields-1.8.1-source.zip
+          cp mod/build/distributions/noobvill-power-forcefields-1.8.1-api.zip mod/build/libs/
       - uses: actions/upload-artifact@v4
         with:
-          name: noobvill-power-1.8.0-artifacts
+          name: noobvill-power-1.8.1-artifacts
           path: mod/build/libs/*
           if-no-files-found: error
