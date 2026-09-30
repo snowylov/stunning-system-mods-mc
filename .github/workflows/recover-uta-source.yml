@@ -1,0 +1,31 @@
+name: Recover Universal API source chain
+on:
+  push:
+    branches: [ndf-coal-tools-1.21.11-build]
+    paths: [.github/workflows/recover-uta-source.yml]
+permissions:
+  contents: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Recover source chain from original user repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch universal-tool-apis-v1.5 https://github.com/snowylov/Simple-Fabric-mod-builder.git original
+          cp -a original/universal-crowbar-api recovered-uta
+          git -C original rev-parse HEAD > recovered-uta/UPSTREAM_COMMIT.txt
+          tr -cd 'A-Za-z0-9+/=' < original/uta130_patch.b64 | base64 -d > /tmp/uta130.tar.gz
+          tar -xzf /tmp/uta130.tar.gz -C recovered-uta
+          cat original/uta140_chunk_00 original/uta140_chunk_01 original/uta140_chunk_02 original/uta140_chunk_03 | tr -cd 'A-Za-z0-9+/=' | base64 -d > /tmp/uta140.tar.gz
+          tar -xzf /tmp/uta140.tar.gz -C recovered-uta
+          tr -cd 'A-Za-z0-9+/=' < original/uta150_patch.b64 | base64 -d > /tmp/uta150.tar.gz
+          tar -xzf /tmp/uta150.tar.gz -C recovered-uta
+          find recovered-uta/src/main/java -name '*.java' | sort
+          tar -czf recovered-uta.tar.gz recovered-uta
+      - uses: actions/upload-artifact@v4
+        with:
+          name: complete-universal-api-sources
+          path: recovered-uta.tar.gz
+          retention-days: 7
