@@ -1,0 +1,251 @@
+name: Publish NDF suite preview
+
+on:
+  push:
+    branches: [ndf-coal-tools-1.21.11-build]
+    paths:
+      - '.github/workflows/publish-ndf-suite-preview.yml'
+      - '.ndf-release/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ndf-suite-preview-publication
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      RELEASE_TAG: ndf-suite-v0.3.1-preview-mc1.21.11
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.2.1'
+      - name: Refuse overwriting an existing release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo 'This release already exists. Refusing to overwrite it.' >&2
+            exit 1
+          fi
+          if git ls-remote --exit-code --tags origin "refs/tags/$RELEASE_TAG" >/dev/null 2>&1; then
+            echo 'This tag already exists. Refusing to move it.' >&2
+            exit 1
+          fi
+      - name: Recover and verify exact source tree
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import base64
+          import hashlib
+          import io
+          import json
+          import os
+          from pathlib import Path, PurePosixPath
+          import shutil
+          import subprocess
+          import tarfile
+          import tempfile
+          import zipfile
+
+          root = Path.cwd()
+          transport = root / '.ndf-release'
+          transport.mkdir(exist_ok=True)
+          expected_parts = [
+              '3686aef473d69daaa70ccfb90e9939d5507a5622',
+              '23b83210344aa9cb19139f582b74dd19a8bc08ed',
+              '835f6c176a5f6affb2757377543a8ebcf373fa60',
+              '1c6abe609f501b5d0561e978a54e8a5e144a466e',
+              '84ffdb9d065b3359b674a369d24b44ed7d426b42',
+              '23f1cb82f16ccca2872717fb171e4d4cad09ebbd',
+              '3f8e3f0b5e0e9f739c14087948286dff172cce78',
+              'bf7f501e01a4323bfc33ac736c5dbf60ee60a2d4',
+              'ca5aa22c936c2d786a42b575861f4fe49ce35cf1',
+              '1074c2fa8c29d1165be7b54bf1c2dd63db2064cc',
+              '01a1ba97c80a3963b275918426f131fd97829f5f',
+              'b92a618f328091ffba96d4cb7f81822f2977e4b9',
+              'b1516602bf6e71799121e59786f5e0752271eee6',
+              '9051c667d70f5f2c0cc39ebac0e6a655f5f33450',
+              'd610ce9f30096127a8289ad8c7e32c39b648581a',
+          ]
+          chunks = []
+          for index, expected in enumerate(expected_parts):
+              destination = transport / f'part-{index:03d}.bin'
+              if destination.exists():
+                  content = destination.read_bytes()
+              else:
+                  endpoint = f'repos/{os.environ["GITHUB_REPOSITORY"]}/git/blobs/{expected}'
+                  response = json.loads(subprocess.check_output(['gh', 'api', endpoint]))
+                  if response.get('encoding') != 'base64':
+                      raise RuntimeError(f'Unexpected encoding for source part {index}')
+                  content = base64.b64decode(response['content'])
+              git_hash = hashlib.sha1(f'blob {len(content)}\0'.encode() + content).hexdigest()
+              if git_hash != expected:
+                  raise RuntimeError(f'Incorrect source part {index}: {git_hash}')
+              destination.write_bytes(content)
+              chunks.append(content)
+          archive_bytes = b''.join(chunks)
+          archive_hash = hashlib.sha256(archive_bytes).hexdigest()
+          if archive_hash != '7c827f58551ce438db6a260b2962d86f896404270b78210f51ac85ef837e2be3':
+              raise RuntimeError(f'Source archive checksum mismatch: {archive_hash}')
+
+          def unpack(data, destination):
+              with tarfile.open(fileobj=io.BytesIO(data), mode='r:*') as archive:
+                  for member in archive.getmembers():
+                      relative = PurePosixPath(member.name)
+                      if relative.is_absolute() or '..' in relative.parts:
+                          raise RuntimeError(f'Unsafe archive path: {member.name}')
+                      target = destination.joinpath(*relative.parts)
+                      if member.isdir():
+                          target.mkdir(parents=True, exist_ok=True)
+                      elif member.isfile():
+                          target.parent.mkdir(parents=True, exist_ok=True)
+                          with archive.extractfile(member) as source:
+                              target.write_bytes(source.read())
+                      else:
+                          raise RuntimeError(f'Unsupported archive entry: {member.name}')
+
+          with tempfile.TemporaryDirectory() as temp_name:
+              temp = Path(temp_name)
+              delta = temp / 'delta'
+              unpack(archive_bytes, delta)
+              manifest_path = delta / 'transport_manifest.json'
+              manifest = json.loads(manifest_path.read_text())
+              (transport / 'transport_manifest.json').write_bytes(manifest_path.read_bytes())
+
+              def is_hash(value):
+                  return isinstance(value, str) and len(value) == 64 and all(c in '0123456789abcdef' for c in value)
+
+              expected_files = {}
+              def register(path, checksum):
+                  relative = PurePosixPath(path)
+                  if relative.is_absolute() or '..' in relative.parts or not path:
+                      raise RuntimeError(f'Unsafe manifest path: {path}')
+                  if path in expected_files and expected_files[path] != checksum:
+                      raise RuntimeError(f'Conflicting checksums for {path}')
+                  expected_files[path] = checksum
+
+              file_records = manifest.get('files', manifest.get('file_hashes', manifest.get('paths')))
+              if isinstance(file_records, dict):
+                  for path, record in file_records.items():
+                      checksum = record if is_hash(record) else record.get('sha256', record.get('hash')) if isinstance(record, dict) else None
+                      if is_hash(checksum):
+                          register(path, checksum)
+              elif isinstance(file_records, list):
+                  for record in file_records:
+                      if isinstance(record, dict):
+                          path = record.get('path', record.get('relative_path'))
+                          checksum = record.get('sha256', record.get('hash'))
+                          if isinstance(path, str) and is_hash(checksum):
+                              register(path, checksum)
+              if len(expected_files) != 1298:
+                  raise RuntimeError(f'Expected 1298 source manifest entries, got {len(expected_files)}; manifest keys: {list(manifest)}')
+
+              original = temp / 'original'
+              subprocess.run(['git', 'init', str(original)], check=True)
+              subprocess.run(['git', '-C', str(original), 'remote', 'add', 'origin', 'https://github.com/snowylov/Simple-Fabric-mod-builder.git'], check=True)
+              subprocess.run(['git', '-C', str(original), 'fetch', '--depth', '1', 'origin', '57f780f98352e46753f5d8035f08e7f76a881407'], check=True)
+              subprocess.run(['git', '-C', str(original), 'checkout', '--detach', 'FETCH_HEAD'], check=True)
+              recovered = temp / 'recovered-uta'
+              shutil.copytree(original / 'universal-crowbar-api', recovered)
+              unpack(base64.b64decode((original / 'uta130_patch.b64').read_bytes()), recovered)
+              patch140 = b''.join((original / f'uta140_chunk_{index:02d}').read_bytes() for index in range(4))
+              unpack(base64.b64decode(patch140), recovered)
+              unpack(base64.b64decode((original / 'uta150_patch.b64').read_bytes()), recovered)
+
+              wrapper_project = temp / 'wrapper-project'
+              wrapper_project.mkdir()
+              (wrapper_project / 'settings.gradle').write_text("rootProject.name = 'wrapper-bootstrap'\n")
+              (wrapper_project / 'build.gradle').write_text('')
+              subprocess.run(['gradle', '--no-daemon', '-p', str(wrapper_project), 'wrapper', '--gradle-version', '9.2.1', '--distribution-type', 'bin'], check=True)
+              wrapper = wrapper_project / 'gradle/wrapper/gradle-wrapper.jar'
+              if hashlib.sha256(wrapper.read_bytes()).hexdigest() != '423cb469ccc0ecc31f0e4e1c309976198ccb734cdcbb7029d4bda0f18f57e8d9':
+                  raise RuntimeError('Gradle wrapper checksum mismatch')
+              coal_path = root / 'releases/coal-fuels-1.2.0.jar'
+              coal_hash = hashlib.sha256(coal_path.read_bytes()).hexdigest()
+              if coal_hash != manifest['coal_base_sha256']:
+                  raise RuntimeError('Coal baseline checksum mismatch')
+              output = root / 'ndf-suite-source'
+              if output.exists():
+                  shutil.rmtree(output)
+              output.mkdir()
+              with zipfile.ZipFile(coal_path) as coal:
+                  for path, checksum in sorted(expected_files.items()):
+                      patched = delta / 'patch' / path
+                      content = None
+                      if patched.is_file():
+                          content = patched.read_bytes()
+                      elif path == 'gradle/wrapper/gradle-wrapper.jar':
+                          content = wrapper.read_bytes()
+                      elif path.startswith('coal-fuels/src/main/resources/'):
+                          suffix = path.removeprefix('coal-fuels/src/main/resources/')
+                          if suffix in coal.namelist():
+                              content = coal.read(suffix)
+                      elif path.startswith('universal-tool-apis/'):
+                          candidate = recovered / path.removeprefix('universal-tool-apis/')
+                          if candidate.is_file():
+                              content = candidate.read_bytes()
+                      if content is None or hashlib.sha256(content).hexdigest() != checksum:
+                          raise RuntimeError(f'Missing or incorrect source file: {path}')
+                      target = output / path
+                      target.parent.mkdir(parents=True, exist_ok=True)
+                      target.write_bytes(content)
+              (output / 'gradlew').chmod(0o755)
+              tree = hashlib.sha256()
+              for path in sorted(expected_files):
+                  content = (output / path).read_bytes()
+                  tree.update(path.encode('utf-8') + b'\0')
+                  tree.update(len(content).to_bytes(8, 'big'))
+                  tree.update(content)
+              if tree.hexdigest() != '1b2896701d5f4e2411f5c55db5c3ab7b05d15a3193b966f431313f3175391ff0':
+                  raise RuntimeError(f'Source tree fingerprint mismatch: {tree.hexdigest()}')
+              print(f'VERIFIED_SOURCE_TREE {tree.hexdigest()} ({len(expected_files)} files)')
+          PY
+      - name: Compile and run regression checks
+        working-directory: ndf-suite-source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p verification
+          ./gradlew --no-daemon -PsmokeTests clean build 2>&1 | tee verification/github-build.log
+          python3 scripts/package_release.py
+      - name: Upload verified artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ndf-suite-0.3.1-preview-release
+          path: ndf-suite-source/release/
+          if-no-files-found: error
+      - name: Commit readable source and publish prerelease
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh auth setup-git
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- ndf-suite-source .ndf-release
+          git diff --cached --quiet || git commit -m 'Publish verified NDF suite sources; metadata preview [skip ci]'
+          git push origin HEAD:ndf-coal-tools-1.21.11-build
+          target=$(git rev-parse HEAD)
+          gh release create "$RELEASE_TAG" ndf-suite-source/release/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$target" \
+            --prerelease \
+            --title 'NDF + Coal Fuels + Universal APIs — Fabric 1.21.11 preview' \
+            --notes-file ndf-suite-source/RELEASE_NOTES.md
