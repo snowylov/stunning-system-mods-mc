@@ -1,0 +1,198 @@
+name: Halloween Edition Universal Tool APIs 1.5.8 Release
+
+on:
+  push:
+    branches:
+      - Halloween-edition-universal-tools-api-1.5.8
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: halloween-universal-tool-apis-1.5.8-release
+  cancel-in-progress: true
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Halloween branch
+        uses: actions/checkout@v4
+
+      - name: Reconstruct proven 1.5.7 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work
+          cat release-input/universal-tool-apis-1.5.7-source.zip.b64.part* | base64 --decode > work/base-source.zip
+          unzip -t work/base-source.zip
+          unzip -q work/base-source.zip -d work/base
+          mv work/base/universal-tool-apis-1.5.7 work/universal-tool-apis-1.5.8
+
+      - name: Apply Halloween Edition 1.5.8 packaging
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd work/universal-tool-apis-1.5.8
+
+          sed -i 's/mod_version=1\.5\.7/mod_version=1.5.8/' gradle.properties
+          sed -i "s/rootProject.name = 'universal-tool-apis-1.5.7'/rootProject.name = 'Halloween-edition-universal-tools-api-1.5.8'/" settings.gradle
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("src/main/resources/fabric.mod.json")
+          data = json.loads(path.read_text())
+          data["id"] = "universal-tool-apis-1.5.8"
+          data["name"] = "Halloween Edition Universal Tool APIs 1.5.8"
+          data["description"] = (
+              "Halloween Edition of the unified Fabric 1.21.11 Universal Tool API suite "
+              "with NDF dimension adaptation, portals, furniture/storage, fluids, tools, "
+              "combat APIs, GUI APIs and performance systems."
+          )
+          provides = data.setdefault("provides", [])
+          for alias in ("universal-tool-apis", "universal-tool-apis-1.5.7"):
+              if alias not in provides:
+                  provides.append(alias)
+          path.write_text(json.dumps(data, indent=2) + "\n")
+          PY
+
+          cat >> build.gradle <<'GRADLE'
+
+          // Halloween Edition 1.5.8 release artifact tasks.
+          tasks.register('devJar', Jar) {
+              archiveClassifier = 'dev'
+              from sourceSets.main.output
+              from('LICENSE') { rename { "${it}_${project.archives_base_name}" } }
+          }
+
+          tasks.register('deobfJar', Jar) {
+              archiveClassifier = 'deobf'
+              from sourceSets.main.output
+              from('LICENSE') { rename { "${it}_${project.archives_base_name}" } }
+          }
+
+          tasks.register('apiJar', Jar) {
+              archiveClassifier = 'api'
+              from sourceSets.main.output
+              include 'com/alex/**/api/**'
+              include 'com/alex/ndf/client/NdfChunkApi*'
+              include 'com/alex/ndf/core/**'
+              include 'com/alex/portal/PortalDefinition*'
+              include 'com/alex/portal/PortalRegistry*'
+              include 'META-INF/**'
+              from('LICENSE') { rename { "${it}_${project.archives_base_name}" } }
+          }
+
+          build.dependsOn tasks.named('devJar'), tasks.named('deobfJar'), tasks.named('apiJar')
+          GRADLE
+
+          cat > docs-1.5.8.md <<'EOF'
+          # Halloween Edition Universal Tool APIs 1.5.8
+
+          Fabric 1.21.11 Halloween-edition packaging release.
+
+          Artifacts:
+          - game-ready remapped JAR
+          - sources JAR
+          - development JAR
+          - API-only JAR
+          - deobfuscated/Yarn-named JAR
+
+          The underlying 1.5.7 feature set is preserved, including automatic NDF
+          Nether/End adaptation, safe third-party dimension discovery/adaptation,
+          Universal Portal API, renderer integration, async core, tool APIs,
+          furniture/storage/fluid APIs, FIR GUI, and combat APIs.
+          EOF
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle 9.2
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.2.0'
+
+      - name: Build all Halloween Edition artifacts
+        working-directory: work/universal-tool-apis-1.5.8
+        run: gradle clean build sourcesJar devJar apiJar deobfJar remapJar --stacktrace
+
+      - name: Verify and collect exact release artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd work/universal-tool-apis-1.5.8
+
+          mkdir -p ../../release
+
+          test -f build/libs/universal-tool-apis-1.5.8.jar
+          test -f build/libs/universal-tool-apis-1.5.8-sources.jar
+          test -f build/libs/universal-tool-apis-1.5.8-dev.jar
+          test -f build/libs/universal-tool-apis-1.5.8-api.jar
+          test -f build/libs/universal-tool-apis-1.5.8-deobf.jar
+
+          cp build/libs/universal-tool-apis-1.5.8.jar ../../release/
+          cp build/libs/universal-tool-apis-1.5.8-sources.jar ../../release/
+          cp build/libs/universal-tool-apis-1.5.8-dev.jar ../../release/
+          cp build/libs/universal-tool-apis-1.5.8-api.jar ../../release/
+          cp build/libs/universal-tool-apis-1.5.8-deobf.jar ../../release/
+
+          cd ..
+          zip -qr ../release/universal-tool-apis-1.5.8-halloween-source.zip universal-tool-apis-1.5.8 \
+            -x 'universal-tool-apis-1.5.8/.gradle/*' \
+               'universal-tool-apis-1.5.8/build/*'
+
+          cd ../release
+          sha256sum * > SHA256SUMS.txt
+          ls -lah
+
+      - name: Upload build artifact bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: halloween-universal-tool-apis-1.5.8
+          path: release/*
+          if-no-files-found: error
+
+      - name: Publish Halloween Edition GitHub release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="v1.5.8-halloween"
+          TITLE="Halloween Edition Universal Tool APIs 1.5.8"
+          NOTES=$(cat <<'EOF'
+          Halloween Edition Universal Tool APIs 1.5.8 for Fabric 1.21.11.
+
+          This packaging release preserves the proven 1.5.7 feature set and adds
+          a complete developer release matrix.
+
+          Assets:
+          - universal-tool-apis-1.5.8.jar — game-ready remapped JAR
+          - universal-tool-apis-1.5.8-sources.jar — source JAR
+          - universal-tool-apis-1.5.8-dev.jar — development JAR
+          - universal-tool-apis-1.5.8-api.jar — API-focused JAR
+          - universal-tool-apis-1.5.8-deobf.jar — deobfuscated/Yarn-named JAR
+          - universal-tool-apis-1.5.8-halloween-source.zip — complete release source
+          - SHA256SUMS.txt — integrity hashes
+
+          Includes NDF automatic Nether/End adaptation, safe third-party dimension
+          adaptation/discovery, Universal Portal API, NDF renderer support,
+          asynchronous core, universal tools, fluids, furniture/storage, FIR GUI,
+          ranged/combat APIs, Elytra, Spear, Totems & Charms and Projectile Damage APIs.
+          EOF
+          )
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --title "$TITLE" --notes "$NOTES" --target "$GITHUB_SHA"
+          else
+            gh release create "$TAG" --title "$TITLE" --notes "$NOTES" --target "$GITHUB_SHA"
+          fi
+
+          gh release upload "$TAG" release/* --clobber
