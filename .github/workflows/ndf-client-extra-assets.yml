@@ -1,0 +1,40 @@
+name: Complete temporary client verification assets
+on:
+  push:
+    branches: [ndf-coal-tools-1.21.11-build]
+    paths: [.github/workflows/ndf-client-extra-assets.yml]
+permissions:
+  contents: read
+jobs:
+  assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download non-audio official client assets for private testing
+        run: |
+          python3 - <<'PY'
+          import json,urllib.request,hashlib,concurrent.futures
+          from pathlib import Path
+          def fetch(url):
+            req=urllib.request.Request(url,headers={'User-Agent':'NDF-build-verification/1.0'})
+            return urllib.request.urlopen(req,timeout=60).read()
+          manifest=json.loads(fetch('https://piston-meta.mojang.com/mc/game/version_manifest_v2.json'))
+          version=next(v for v in manifest['versions'] if v['id']=='1.21.11')
+          info=json.loads(fetch(version['url']));meta=info['assetIndex'];data=fetch(meta['url'])
+          assert hashlib.sha1(data).hexdigest()==meta['sha1']
+          root=Path('test-assets');(root/'indexes').mkdir(parents=True)
+          (root/'indexes'/f"{meta['id']}.json").write_bytes(data)
+          (root/'INDEX_ID.txt').write_text(meta['id'])
+          entries=[v for k,v in json.loads(data)['objects'].items() if not k.endswith('.ogg') and ('/lang/' not in k or '/lang/en_' in k)]
+          def save(v):
+            h=v['hash'];b=fetch(f'https://resources.download.minecraft.net/{h[:2]}/{h}')
+            assert hashlib.sha1(b).hexdigest()==h
+            path=root/'objects'/h[:2]/h;path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(b)
+          with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:list(pool.map(save,entries))
+          print('Fetched',len(entries),'official resources for private verification only')
+          PY
+          tar -czf client-extra-assets.tar.gz test-assets
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ndf-client-extra-assets
+          path: client-extra-assets.tar.gz
+          retention-days: 1
