@@ -1,0 +1,93 @@
+name: Universal Tool APIs 1.5.7 Release
+
+on:
+  push:
+    branches:
+      - universal-tool-apis-1.5.7
+
+permissions:
+  contents: write
+
+concurrency:
+  group: universal-tool-apis-1.5.7-release
+  cancel-in-progress: true
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@v4
+
+      - name: Reconstruct source archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work
+          cat release-input/universal-tool-apis-1.5.7-source.zip.b64.part* | base64 --decode > work/universal-tool-apis-1.5.7-source.zip
+          unzip -t work/universal-tool-apis-1.5.7-source.zip
+          unzip -q work/universal-tool-apis-1.5.7-source.zip -d work/source
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.14.3'
+
+      - name: Build Fabric mod
+        working-directory: work/source/universal-tool-apis-1.5.7
+        run: gradle clean build --stacktrace
+
+      - name: Collect release files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          cp work/source/universal-tool-apis-1.5.7/build/libs/*.jar release/
+          cp work/universal-tool-apis-1.5.7-source.zip release/
+          sha256sum release/* > release/SHA256SUMS.txt
+          ls -lah release
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: universal-tool-apis-1.5.7
+          path: release/*
+          if-no-files-found: error
+
+      - name: Publish GitHub release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="v1.5.7"
+          TITLE="Universal Tool APIs 1.5.7"
+          NOTES=$(cat <<'EOF'
+          Universal Tool APIs 1.5.7 for Fabric 1.21.11.
+
+          Highlights:
+          - Unified Universal Tool API suite in one mod.
+          - NDF automatic Nether and End adaptation.
+          - Automatic third-party dimension discovery with safe cooperative lifecycle fallback.
+          - Universal Portal API and bounded NDF renderer integration.
+          - Elytra, Spear, Totems & Charms, Projectile Damage, Fluid, Furniture, Storage, Chest, FIR GUI, tool APIs, asynchronous core, and compatibility IDs.
+          - Java 21 / Yarn 1.21.11+build.4 / Fabric Loader 0.18.4.
+
+          Release assets include the game-ready remapped JAR, sources JAR, complete source ZIP, and SHA-256 checksums.
+          EOF
+          )
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --title "$TITLE" --notes "$NOTES" --target "$GITHUB_SHA"
+          else
+            gh release create "$TAG" --title "$TITLE" --notes "$NOTES" --target "$GITHUB_SHA"
+          fi
+
+          gh release upload "$TAG" release/* --clobber
