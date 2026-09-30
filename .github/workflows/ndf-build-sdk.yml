@@ -1,0 +1,104 @@
+name: NDF compile environment
+on:
+  push:
+    branches: [ndf-coal-tools-1.21.11-build]
+    paths: [.github/workflows/ndf-build-sdk.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.2.1'
+      - name: Recover original Universal Tool APIs 1.5 project
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p sdk/recovered
+          git clone --depth 1 --branch universal-tool-apis-v1.5 https://github.com/snowylov/Simple-Fabric-mod-builder.git original-uta
+          git -C original-uta rev-parse HEAD > sdk/recovered/UPSTREAM_COMMIT.txt
+          unzip -q original-uta/source-parts/source.part-000 -d sdk/recovered
+          UTA_ROOT="$(find sdk/recovered -name build.gradle -printf '%h\n' | head -1)"
+          test -n "$UTA_ROOT"
+          tr -cd 'A-Za-z0-9+/=' < original-uta/uta150_patch.b64 | base64 -d > /tmp/uta150.tar.gz
+          tar -xzf /tmp/uta150.tar.gz -C "$UTA_ROOT"
+          if [ -f "$UTA_ROOT/src/main/java/com/alex/universalelytraapi/api/ElytraFallContext.java" ]; then
+            sed -i 's/        float fallDistance,/        double fallDistance,/' "$UTA_ROOT/src/main/java/com/alex/universalelytraapi/api/ElytraFallContext.java"
+          fi
+          cat "$UTA_ROOT/build.gradle"
+          find "$UTA_ROOT/src/main" -type f | wc -l
+      - name: Prepare minimal mapped development project
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p sdk/seed/src/main/resources
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, urllib.request
+          root=Path('sdk/seed')
+          root.joinpath('settings.gradle').write_text("pluginManagement { repositories { maven { url='https://maven.fabricmc.net/' }; gradlePluginPortal(); mavenCentral() } }\nrootProject.name='ndf-build-seed'\n")
+          root.joinpath('gradle.properties').write_text('org.gradle.jvmargs=-Xmx3G\norg.gradle.daemon=false\norg.gradle.workers.max=2\n')
+          root.joinpath('src/main/resources/fabric.mod.json').write_text(json.dumps({'schemaVersion':1,'id':'ndf_build_seed','version':'1.0.0','environment':'*'}))
+          url='https://api.modrinth.com/v2/project/modmenu/version?game_versions=%5B%221.21.11%22%5D&loaders=%5B%22fabric%22%5D'
+          req=urllib.request.Request(url,headers={'User-Agent':'NDF-build/1.0'})
+          versions=json.load(urllib.request.urlopen(req))
+          version=next((v for v in versions if v['version_type']=='release'),versions[0])
+          modmenu=version['version_number']
+          Path('sdk/MODMENU_VERSION.txt').write_text(modmenu)
+          build='''plugins { id 'fabric-loom' version '1.14.10' }
+          version='1.0.0'
+          repositories { maven { url='https://maven.terraformersmc.com/releases/' } }
+          dependencies {
+            minecraft 'com.mojang:minecraft:1.21.11'
+            mappings 'net.fabricmc:yarn:1.21.11+build.4:v2'
+            modImplementation 'net.fabricmc:fabric-loader:0.18.4'
+            modImplementation 'net.fabricmc.fabric-api:fabric-api:0.141.6+1.21.11'
+            modImplementation('teamreborn:energy:4.2.0') { transitive=false }
+            modCompileOnly 'com.terraformersmc:modmenu:MODMENU_VERSION'
+          }
+          java { toolchain.languageVersion=JavaLanguageVersion.of(21); withSourcesJar() }
+          tasks.register('exportSdk') {
+            doLast {
+              copy { from sourceSets.main.compileClasspath; into '../cp' }
+              copy { from sourceSets.main.runtimeClasspath; into '../runtime' }
+              copy { from configurations.annotationProcessor; into '../ap' }
+              copy { from buildscript.configurations.classpath; into '../loom-tools' }
+            }
+          }
+          '''
+          root.joinpath('build.gradle').write_text(build.replace('MODMENU_VERSION',modmenu))
+          PY
+          cd sdk/seed
+          gradle build exportSdk --stacktrace
+          gradle wrapper --gradle-version 9.2.1 --distribution-type bin
+      - name: Collect build-only mappings and cache
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p sdk/cache
+          cp -a ~/.gradle/caches/fabric-loom sdk/cache/
+          cp -a ~/.gradle/caches/modules-2 sdk/cache/
+          GROOT="$(dirname "$(dirname "$(readlink -f "$(command -v gradle)")")")"
+          cp -a "$GROOT" sdk/gradle
+          find sdk -name '*.lock' -delete
+          find sdk -path '*/transforms/*' -prune -o -name '*.jar' -printf '%p\n' > sdk/JARS.txt
+          du -sh sdk/*
+          tar -czf ndf-build-sdk.tar.gz sdk
+      - name: Temporary build dependencies, not release assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: ndf-build-sdk
+          path: ndf-build-sdk.tar.gz
+          retention-days: 1
+          compression-level: 0
