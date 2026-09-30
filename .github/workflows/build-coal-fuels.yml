@@ -25,6 +25,8 @@ jobs:
         run: |
           cat coal-fuels-upload/source.tar.xz.b64.part-* | base64 -d > coal-fuels-full.tar.xz
           tar -xJf coal-fuels-full.tar.xz
+          sed -i 's/import net.minecraft.state.property.DirectionProperty;/import net.minecraft.state.property.EnumProperty;/' coal-fuels-fabric-1.21.11/src/main/java/com/alex/coalfuels/GlowstoneWireBlock.java
+          sed -i 's/public static final DirectionProperty FACING/public static final EnumProperty<Direction> FACING/' coal-fuels-fabric-1.21.11/src/main/java/com/alex/coalfuels/GlowstoneWireBlock.java
 
       - name: Set up Java 21
         uses: actions/setup-java@v4
