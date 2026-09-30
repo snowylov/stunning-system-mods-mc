@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - bricks-and-coal-santas-tricks
-    paths:
-      - 'coal-fuels-upload-v1.2/BUILD_TRIGGER.md'
+    paths-ignore:
+      - 'releases/**'
   workflow_dispatch:
 
 permissions:
